@@ -1,0 +1,14 @@
+{
+	"Welcome": "Welcome",
+	"A brand new app.": "A brand new app.",
+	"brand": "linkgo.io",
+	"home": {
+		"slogan": "Smart Solution For Future Bussiness",
+		"description": "linkgo.io help design and implement smart solutions to improve your bussiness",
+		"find_out_more": "Find Out More",
+		"email_us": "Email To Us",
+		"category": "home.category",
+		"project_name_2": "home.project_name_2",
+		"project_name_3": "home.project_name_3"
+	}
+}
