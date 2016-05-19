@@ -35,13 +35,12 @@ html
             span.icon-bar
             span.icon-bar
           a.navbar-brand.page-scroll(href='#page-top')= __("brand")
-        // <div class="collapse navbar&#45;collapse" id="bs&#45;example&#45;navbar&#45;collapse&#45;1">
-        // <ul class="nav navbar&#45;nav navbar&#45;right">
-        // <li>
-        // <a href="">Blog</a>
-        // </li>
-        // </ul>
-        // </div>
+
+        .collapse.navbar-collapse#bs-example-navbar-collapse-1
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="http://localhost:4000/blog")= __("home.blog")
+
     header
       .header-content
         .header-content-inner

@@ -3,6 +3,7 @@
 	"A brand new app.": "A brand new app.",
 	"brand": "linkgo.io",
 	"home": {
+                "blog": "Blog",
 		"slogan": "Smart Solution For Future Bussiness",
 		"description": "linkgo.io help design and implement smart solutions to improve your bussiness",
 		"find_out_more": "Find Out More",

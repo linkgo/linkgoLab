@@ -41,6 +41,7 @@ i18n.configure({
 app.use(i18n.init);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/blog', express.static(path.join(__dirname, 'blog')));
 
 app.use('/', routes);
 app.use('/users', users);
@@ -75,8 +76,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-console.log(i18n.__("brand"));
-console.log(i18n.__("home.slogan"));
 
 module.exports = app;
