@@ -1,8 +1,3 @@
-/*!
- *  v0.0.0 ()
- * Copyright 2013-2016 
- */
-
 html,
 body {
   height: 100%;
@@ -58,7 +53,7 @@ aside {
 .no-padding {
   padding: 0;
 }
-.navbar-default {
+.navbar-linkgo {
   background-color: #00A5DB;
   border-color: transparent;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -66,73 +61,73 @@ aside {
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
-.navbar-default .navbar-header .navbar-brand {
+.navbar-linkgo .navbar-header .navbar-brand {
   color: white;
   font-weight: 700;
 }
-.navbar-default .navbar-header .navbar-brand:hover,
-.navbar-default .navbar-header .navbar-brand:focus {
+.navbar-linkgo .navbar-header .navbar-brand:hover,
+.navbar-linkgo .navbar-header .navbar-brand:focus {
   color: #0CE8A6;
 }
-.navbar-default .nav > li > a,
-.navbar-default .nav > li > a:focus {
+.navbar-linkgo .nav > li > a,
+.navbar-linkgo .nav > li > a:focus {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 13px;
   color: #0CE8A6;
 }
-.navbar-default .nav > li > a:hover,
-.navbar-default .nav > li > a:focus:hover {
+.navbar-linkgo .nav > li > a:hover,
+.navbar-linkgo .nav > li > a:focus:hover {
   color: #0CE8A6;
 }
-.navbar-default .nav > li.active > a,
-.navbar-default .nav > li.active > a:focus {
+.navbar-linkgo .nav > li.active > a,
+.navbar-linkgo .nav > li.active > a:focus {
   color: white !important;
   background-color: transparent;
 }
-.navbar-default .nav > li.active > a:hover,
-.navbar-default .nav > li.active > a:focus:hover {
+.navbar-linkgo .nav > li.active > a:hover,
+.navbar-linkgo .nav > li.active > a:focus:hover {
   background-color: transparent;
 }
 @media (min-width: 768px) {
-  .navbar-default {
+  .navbar-linkgo {
     background-color: transparent;
     border-color: transparent;
   }
-  .navbar-default .navbar-header .navbar-brand {
+  .navbar-linkgo .navbar-header .navbar-brand {
     color: #00A5DB;
   }
-  .navbar-default .navbar-header .navbar-brand:hover,
-  .navbar-default .navbar-header .navbar-brand:focus {
+  .navbar-linkgo .navbar-header .navbar-brand:hover,
+  .navbar-linkgo .navbar-header .navbar-brand:focus {
     color: #00759B;
   }
-  .navbar-default .nav > li > a,
-  .navbar-default .nav > li > a:focus {
+  .navbar-linkgo .nav > li > a,
+  .navbar-linkgo .nav > li > a:focus {
     color: #00A5DB;
   }
-  .navbar-default .nav > li > a:hover,
-  .navbar-default .nav > li > a:focus:hover {
+  .navbar-linkgo .nav > li > a:hover,
+  .navbar-linkgo .nav > li > a:focus:hover {
     color: #00759B;
   }
-  .navbar-default.affix {
+  .navbar-linkgo.affix {
     -webkit-transition: all 2s;
     -moz-transition: all 2s;
     transition: all 2s;
     background-color: #00A5DB;
   }
-  .navbar-default.affix .navbar-header .navbar-brand {
+  .navbar-linkgo.affix .navbar-header .navbar-brand {
     color: rgba(255, 255, 255, 0.7);
   }
-  .navbar-default.affix .navbar-header .navbar-brand:hover,
-  .navbar-default.affix .navbar-header .navbar-brand:focus {
+  .navbar-linkgo.affix .navbar-header .navbar-brand:hover,
+  .navbar-linkgo.affix .navbar-header .navbar-brand:focus {
     color: white;
   }
-  .navbar-default.affix .nav > li > a,
-  .navbar-default.affix .nav > li > a:focus {
+  .navbar-linkgo.affix .nav > li > a,
+  .navbar-linkgo.affix .nav > li > a:focus {
     color: rgba(255, 255, 255, 0.7);
   }
-  .navbar-default.affix .nav > li > a:hover,
-  .navbar-default.affix .nav > li > a:focus:hover {
+  .navbar-linkgo.affix .nav > li > a:hover,
+  .navbar-linkgo.affix .nav > li > a:focus:hover {
     color: white;
   }
 }

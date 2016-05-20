@@ -23,15 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// i18n.expressBind(app, {
-//     locales: ['en', 'zh'],
-//     cookieName: 'locale'
-// });
-// app.use(function(req, res, next) {
-//     req.i18n.setLocaleFromCookie();
-//     next();
-// });
-
 i18n.configure({
   locales: ['en', 'zh'],
   directory: __dirname + '/locales',
@@ -41,7 +32,7 @@ i18n.configure({
 app.use(i18n.init);
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/blog', express.static(path.join(__dirname, 'blog')));
+app.use('/blog', express.static(path.join(__dirname, 'linkgoBlog/public')));
 
 app.use('/', routes);
 app.use('/users', users);

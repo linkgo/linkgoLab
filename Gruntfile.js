@@ -15,7 +15,8 @@ module.exports = function(grunt) {
                     paths: ["css"]
                 },
                 files: {
-                    "public/stylesheets/linkgo.css": "public/stylesheets/linkgo.less"
+                    "public/stylesheets/linkgo.css": "public/stylesheets/linkgo.less",
+                    "./linkgoBlog/themes/bootstrap-blog/source/css/linkgo-blog.css": "public/stylesheets/linkgo-blog.less"
                 }
             },
             minified: {

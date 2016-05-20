@@ -69,8 +69,9 @@ aside {
 
 // Navigation
 
-.navbar-linkgo {
-    background-color: @color-base;
+.navbar-linkgo-blog {
+    margin-bottom: 0px;
+    background-color: @color-second;
     border-color: transparent;
     .sans-serif-font;
     .transition-all;
@@ -108,19 +109,20 @@ aside {
         }
     }
     @media (min-width: 768px) {
-        background-color: transparent;
+        margin-bottom: 0px;
+        background-color: @color-second;
         border-color: transparent;
         .navbar-header
         .navbar-brand {
-            color: @color-base;
+            color: fade(white, 70%);
             &:hover,
             &:focus {
-                color: @color-base-dark;
+                color: white;
             }
         }
         .nav > li > a,
         .nav > li > a:focus {
-            color: @color-base;
+            color: white;
             &:hover {
                 color: @color-base-dark;
             }
@@ -148,13 +150,11 @@ aside {
 }
 
 // Homepage Header
-
-header {
+.header-linkgo-blog {
     position: relative;
     width: 100%;
-    min-height: auto;
-    //background: url('../img/ET.jpg');
-    //background: linear-gradient( rgba(red(@color-base), green(@color-base), blue(@color-base), 0%), rgba(red(@color-base), green(@color-base), blue(@color-base), 5%), rgba(red(@color-base), green(@color-base), blue(@color-base), 100%) ), url('../img/ET.jpg');
+    min-height: 30%;
+    background: url('../guitar-road.jpg');
     .background-cover;
     background-position: center;
     text-align: center;
@@ -182,7 +182,7 @@ header {
         }
     }
     @media (min-width: 768px) {
-        min-height: 75%;
+        min-height: 30%;
         .header-content {
             position: absolute;
             top: 50%;
