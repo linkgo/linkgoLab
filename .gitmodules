@@ -1,0 +1,3 @@
+[submodule "linkgoBlog"]
+	path = linkgoBlog
+	url = ./linkgoBlog/
