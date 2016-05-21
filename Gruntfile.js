@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                 },
             },
             less: {
-                files: ['public/stylesheets/*.less'],
+                files: ['public/stylesheets/*.less', './linkgoBlog/themes/bootstrap-blog/source/css/*.less'],
                 tasks: ['less'],
                 options: {
                     spawn: false,
