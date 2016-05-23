@@ -44,6 +44,16 @@ module.exports = function(grunt) {
                 }
             }
         },
+        copy: {
+          main: {
+            files: [
+              {expand: true, cwd: './public/javascripts/', src: 'bootstrap.js', dest: './linkgoBlog/themes/bootstrap-blog/source/js/', filter: 'isFile'},
+              {expand: true, cwd: './public/javascripts/', src: 'linkgo.js', dest: './linkgoBlog/themes/bootstrap-blog/source/js/', filter: 'isFile'},
+              {expand: true, cwd: './public/javascripts/', src: 'jquery-1.12.3.js', dest: './linkgoBlog/themes/bootstrap-blog/source/js/', filter: 'isFile'},
+              {expand: true, cwd: './public/javascripts/', src: 'jquery.fittext.js', dest: './linkgoBlog/themes/bootstrap-blog/source/js/', filter: 'isFile'},
+            ],
+          },
+        },
         watch: {
             scripts: {
                 files: ['public/javascripts/linkgo.js'],
@@ -66,9 +76,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-banner');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['uglify', 'less', 'usebanner', 'watch']);
+    grunt.registerTask('default', ['uglify', 'less', 'usebanner', 'copy', 'watch']);
 
 };
