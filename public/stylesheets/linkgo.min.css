@@ -1,3 +1,8 @@
+/*!
+ *  v0.0.0 ()
+ * Copyright 2013-2016 
+ */
+
 html,
 body {
   height: 100%;
@@ -74,11 +79,11 @@ aside {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 13px;
-  color: #0CE8A6;
+  color: rgba(255, 255, 255, 0.7);
 }
 .navbar-linkgo .nav > li > a:hover,
 .navbar-linkgo .nav > li > a:focus:hover {
-  color: #0CE8A6;
+  color: white;
 }
 .navbar-linkgo .nav > li.active > a,
 .navbar-linkgo .nav > li.active > a:focus {
