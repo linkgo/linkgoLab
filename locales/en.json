@@ -1,6 +1,5 @@
 {
 	"Welcome": "Welcome",
-	"A brand new app.": "A brand new app.",
 	"brand": "linkgo.io",
 	"home": {
                 "blog": "Blog",
@@ -8,8 +7,9 @@
 		"description": "linkgo.io help design and implement smart solutions to improve your business",
 		"find_out_more": "Find Out More",
 		"email_us": "Email To Us",
-		"category": "home.category",
-		"project_name_2": "home.project_name_2",
-		"project_name_3": "home.project_name_3"
+		"category_solution": "solution",
+		"category_device": "device",
+		"project_name_distributed_data_collection": "Distributed Data Collection",
+		"project_name_iot_device": "IOT Device"
 	}
 }

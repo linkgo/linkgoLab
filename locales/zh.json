@@ -1,6 +1,5 @@
 {
 	"Welcome": "欢迎",
-	"A brand new app.": "新应用",
 	"brand": "linkgo.io",
 	"home": {
                 "blog": "博客",
@@ -8,8 +7,9 @@
 		"description": "linkgo.io 帮助您设计实现智能解决方案 引领商业变革",
 		"find_out_more": "了解更多",
 		"email_us": "联系我们",
-		"category": "类别",
-		"project_name_2": "项目2",
-		"project_name_3": "项目3"
+		"category_solution": "解决方案",
+		"category_device": "智能设备",
+		"project_name_distributed_data_collection": "分布式数据采集",
+		"project_name_iot_device": "物联网设备"
 	}
 }
