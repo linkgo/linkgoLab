@@ -5,11 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
-
+var passport = require('passport');
+var config = require('./config');
+var router = require('./routes/users');
 var app = express();
 
 // view engine setup
@@ -22,6 +20,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
 
 i18n.configure({
   locales: ['en', 'zh'],
@@ -31,11 +30,12 @@ i18n.configure({
 });
 app.use(i18n.init);
 
+app.config = config;
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/blog', express.static(path.join(__dirname, 'linkgoBlog/public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,7 +68,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(80, function() {
+app.listen(4000, function() {
 });
 
 module.exports = app;
