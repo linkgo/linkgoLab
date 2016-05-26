@@ -96,15 +96,6 @@ module.exports = function(grunt) {
                 return filePath + '.map';
               }
             },
-            layouts: {
-              files: {
-                './public/layouts/linkgo.min.js': [
-                  './public/vendor/jquery/jquery.js',
-                  './public/vendor/fittext/jquery.fittext.js',
-                  './public/vendor/bootstrap/js/affix.js',
-                ]
-              }
-            },  
             views: {
                 files: [{
                   expand: true,
@@ -121,9 +112,6 @@ module.exports = function(grunt) {
             },
             layouts: {
               files: {
-                  "./public/layouts/linkgo.min.css": [
-                    "./public/layouts/linkgo.less",
-                  ],
                   "./linkgoBlog/themes/bootstrap-blog/source/css/linkgo-blog.css": [
                     "./linkgoBlog/themes/bootstrap-blog/source/css/linkgo-blog.less"
                   ]
@@ -135,7 +123,7 @@ module.exports = function(grunt) {
                 cwd: 'public/views/',
                 src: ['**/*.less'],
                 dest: 'public/views/',
-                ext: '.min.css'
+                ext: '.css'
               }]
             }
         },

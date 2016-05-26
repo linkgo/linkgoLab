@@ -1,7 +1,8 @@
 extends ../layout
 
 block head
-  title Login
+  link(rel='stylesheet', href='./../public/semantic/dist/semantic.css')
+  link(rel='stylesheet', href='views/login/index.min.css')
 
 block feet
   script(src="/vendor/react/react.js")
@@ -47,25 +48,5 @@ block body
                 i.fa.fa-tumblr-square.fa-lg
                 |  Tumblr
   div#loginForm
-  script(type="text/babel" src="views/login/index.js")
 
-  // script(type='text/template', id='tmpl-login')
-  //   form
-  //     div.alerts
-  //       |<% _.each(errors, function(err) { %>
-  //       div.alert.alert-danger.alert-dismissable
-  //         button.close(type='button', data-dismiss='alert') &times;
-  //         |<%- err %>
-  //       |<% }); %>
-  //     div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
-  //       label Username or Email:
-  //       input.form-control(type='text', name='username', value!='<%= username %>')
-  //       span.help-block <%- errfor.username %>
-  //     div.form-group(class!='<%- errfor.password ? "has-error" : "" %>')
-  //       label Password:
-  //       input.form-control(type='password', name='password', value!='<%= password %>')
-  //       span.help-block <%- errfor.password %>
-  //     div.form-actions
-  //       button.btn.btn-primary.btn-login(type='button') Sign In
-  //       |&nbsp;
-  //       a.btn.btn-link(href='/login/forgot/') Forgot your password?
+  script(type="text/babel" src="views/login/index.js")
