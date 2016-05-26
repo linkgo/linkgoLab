@@ -15,12 +15,15 @@ exports.init = function(req, res){
   }
   else {
     res.render('login/index', {
-      oauthMessage: '',
+      oauthMessage: ''
+/*
+      ,
       oauthTwitter: !!req.app.config.oauth.twitter.key,
       oauthGitHub: !!req.app.config.oauth.github.key,
       oauthFacebook: !!req.app.config.oauth.facebook.key,
       oauthGoogle: !!req.app.config.oauth.google.key,
       oauthTumblr: !!req.app.config.oauth.tumblr.key
+*/
     });
   }
 };

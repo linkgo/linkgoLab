@@ -3,24 +3,42 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        browserify: {
+            options: {
+               transform: [['babelify', {presets: ['es2015', 'react']}]]
+            },
+            views: {
+              files: [{
+                expand: true,
+                cwd: 'public/views/',
+                src: ['**/*.jsx'],
+                dest: 'public/views/',
+                ext: '.js'
+              }]
+            }
+        },
         copy: {
           main: {
             files: [
               {
-                expand: true, cwd: 'node_modules/bootstrap/',
+                expand: true, cwd: './node_modules/bootstrap/',
                 src: ['js/**', 'less/**'], dest: './public/vendor/bootstrap/'
               },
               {
-                expand: true, cwd: 'node_modules/backbone/',
-                src: ['backbone.js'], dest: './public/vendor/backbone/'
-              },
-              {
-                expand: true, cwd: 'node_modules/jquery/dist/',
+                expand: true, cwd: './node_modules/jquery/dist/',
                 src: ['jquery.js'], dest: './public/vendor/jquery/'
               },
               {
-                expand: true, cwd: 'node_modules/fittext.js/',
+                expand: true, cwd: './node_modules/fittext.js/',
                 src: ['jquery.fittext.js'], dest: './public/vendor/fittext/'
+              },
+              {
+                expand: true, cwd: './node_modules/react/dist/',
+                src: ['react.js'], dest: './public/vendor/react/'
+              },
+              {
+                expand: true, cwd: './node_modules/react-dom/dist/',
+                src: ['react-dom.js'], dest: './public/vendor/react-dom/'
               },
 /*
               {
@@ -132,7 +150,10 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>'
                 },
                 files: {
-                    src: ['./public/layouts/linkgo.min.css', './public/layouts/linkgo.min.js']
+                    src: [
+                      './public/layouts/linkgo.min.css',
+                      './public/layouts/linkgo.min.js'
+                    ]
                 }
             }
         },
@@ -157,6 +178,12 @@ module.exports = function(grunt) {
           }
         },
         watch: {
+            jsx: {
+              files: [
+                  'public/views/**/*.jsx'
+              ],
+              tasks: ['newer:browserify']
+            },
             clientJS: {
                 files: [
                   'public/layouts/**/*.js', '!public/layouts/**/*.min.js',
@@ -235,8 +262,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-browserify');
+
 
     // Default task(s).
-    grunt.registerTask('default', ['copy', 'newer:uglify', 'newer:less', 'usebanner', 'concurrent']);
+    grunt.registerTask('default', ['browserify', 'copy', 'newer:uglify', 'newer:less', 'usebanner', 'concurrent']);
 
 };

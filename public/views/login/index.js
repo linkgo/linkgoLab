@@ -1,67 +1,25 @@
-/* global app:true */
-var app;
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
 
-(function() {
-  'use strict';
+var LoginForm = React.createClass({
+  displayName: "LoginForm",
 
-  app = app || {};
+  render: function render() {
+    return React.createElement(
+      "p",
+      null,
+      "We are react now, ",
+      this.props.name,
+      " ",
+      React.createElement("input", { type: "text", placeholder: "Your name here" }),
+      "! It is ",
+      this.props.date.toTimeString()
+    );
+  }
+});
 
-  app.Login = Backbone.Model.extend({
-    url: '/login/',
-    defaults: {
-      errors: [],
-      errfor: {},
-      username: '',
-      password: ''
-    }
-  });
+setInterval(function () {
+  ReactDOM.render(React.createElement(LoginForm, { name: "someone", date: new Date() }), document.getElementById('loginForm'));
+}, 500);
 
-  app.LoginView = Backbone.View.extend({
-    el: '#login',
-    template: _.template( $('#tmpl-login').html() ),
-    events: {
-      'submit form': 'preventSubmit',
-      'keypress [name="password"]': 'loginOnEnter',
-      'click .btn-login': 'login'
-    },
-    initialize: function() {
-      this.model = new app.Login();
-      this.listenTo(this.model, 'sync', this.render);
-      this.render();
-    },
-    render: function() {
-      this.$el.html(this.template( this.model.attributes ));
-      this.$el.find('[name="username"]').focus();
-    },
-    preventSubmit: function(event) {
-      event.preventDefault();
-    },
-    loginOnEnter: function(event) {
-      if (event.keyCode !== 13) { return; }
-      if ($(event.target).attr('name') !== 'password') { return; }
-      event.preventDefault();
-      this.login();
-    },
-    login: function() {
-      this.$el.find('.btn-login').attr('disabled', true);
-
-      this.model.save({
-        username: this.$el.find('[name="username"]').val(),
-        password: this.$el.find('[name="password"]').val()
-      },{
-        success: function(model, response) {
-          if (response.success) {
-            location.href = '/login/';
-          }
-          else {
-            model.set(response);
-          }
-        }
-      });
-    }
-  });
-
-  $(document).ready(function() {
-    app.loginView = new app.LoginView();
-  });
-}());
+},{}]},{},[1]);
