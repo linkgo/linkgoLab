@@ -25,6 +25,10 @@ module.exports = function(grunt) {
                 src: ['js/**', 'less/**'], dest: './public/vendor/bootstrap/'
               },
               {
+                expand: true, cwd: './node_modules/semantic-ui/dist/',
+                src: ['semantic.css', 'semantic.js'], dest: './public/vendor/semantic/'
+              },
+              {
                 expand: true, cwd: './node_modules/jquery/dist/',
                 src: ['jquery.js'], dest: './public/vendor/jquery/'
               },
@@ -254,6 +258,6 @@ module.exports = function(grunt) {
 
 
     // Default task(s).
-    grunt.registerTask('default', ['browserify', 'copy', 'newer:uglify', 'newer:less', 'usebanner', 'concurrent']);
+    grunt.registerTask('default', ['newer:browserify', 'copy', 'newer:uglify', 'newer:less', 'usebanner', 'concurrent']);
 
 };

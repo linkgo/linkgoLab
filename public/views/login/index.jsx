@@ -8,28 +8,26 @@ var LoginForm = React.createClass({
 
   render: function() {
     return (
-      <form className="ui form">
-        <fieldset class="form-group">
+      <form className="ui form login-form">
+        <div className="field">
           <label>Email Address</label>
-          <input type="email" class="form-control" placeholder="Enter your email address here" />
+          <input type="email" className="form-control" placeholder="Enter your email address here" />
           {
             this.state.showEmailSpan ? 
-            <span class="help-block">help email address</span> : null
+            <span className="help-block">help email address</span> : null
           }
-        </fieldset>
-        <fieldset class="form-group">
+        </div>
+        <div className="field">
           <label>Password</label>
-          <input type="password" class="form-control" placeholder="Enter password here" />
+          <input type="password" className="form-control" placeholder="Enter password here" />
           {
             this.state.showPwdSpan ? 
-            <span class="help-block">help password</span> : null
+            <span className="help-block">help password</span> : null
           }
-        </fieldset>
-        <button type="submit" class="btn btn-primary">Sign In</button>
-        <p>
-          We are react now, {this.props.name} <input type="text" placeholder="Your name here" />
-          It is {this.props.date.toTimeString()}
-        </p>
+        </div>
+        <div className="field">
+          <button type="submit" className="ui button">Sign In</button>
+        </div>
       </form>
     );
   }

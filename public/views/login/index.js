@@ -14,51 +14,45 @@ var LoginForm = React.createClass({
   render: function render() {
     return React.createElement(
       "form",
-      { className: "ui form" },
+      { className: "ui form login-form" },
       React.createElement(
-        "fieldset",
-        { "class": "form-group" },
+        "div",
+        { className: "field" },
         React.createElement(
           "label",
           null,
           "Email Address"
         ),
-        React.createElement("input", { type: "email", "class": "form-control", placeholder: "Enter your email address here" }),
+        React.createElement("input", { type: "email", className: "form-control", placeholder: "Enter your email address here" }),
         this.state.showEmailSpan ? React.createElement(
           "span",
-          { "class": "help-block" },
+          { className: "help-block" },
           "help email address"
         ) : null
       ),
       React.createElement(
-        "fieldset",
-        { "class": "form-group" },
+        "div",
+        { className: "field" },
         React.createElement(
           "label",
           null,
           "Password"
         ),
-        React.createElement("input", { type: "password", "class": "form-control", placeholder: "Enter password here" }),
+        React.createElement("input", { type: "password", className: "form-control", placeholder: "Enter password here" }),
         this.state.showPwdSpan ? React.createElement(
           "span",
-          { "class": "help-block" },
+          { className: "help-block" },
           "help password"
         ) : null
       ),
       React.createElement(
-        "button",
-        { type: "submit", "class": "btn btn-primary" },
-        "Sign In"
-      ),
-      React.createElement(
-        "p",
-        null,
-        "We are react now, ",
-        this.props.name,
-        " ",
-        React.createElement("input", { type: "text", placeholder: "Your name here" }),
-        "It is ",
-        this.props.date.toTimeString()
+        "div",
+        { className: "field" },
+        React.createElement(
+          "button",
+          { type: "submit", className: "ui button" },
+          "Sign In"
+        )
       )
     );
   }

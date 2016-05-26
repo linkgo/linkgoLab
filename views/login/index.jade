@@ -1,8 +1,11 @@
 extends ../layout
 
 block head
-  link(rel='stylesheet', href='./../public/semantic/dist/semantic.css')
-  link(rel='stylesheet', href='views/login/index.min.css')
+  meta(name='description', content='linkgo.io web')
+  meta(name='author', content='linkgo.io')
+  title linkgo.io
+
+  link(rel='stylesheet', href='views/login/index.css')
 
 block feet
   script(src="/vendor/react/react.js")
@@ -12,8 +15,6 @@ block feet
 block body
   div.row
     div.col-sm-6
-      div.page-header
-        h1 Sign In
       div#login
       if oauthTwitter || oauthGitHub || oauthFacebook || oauthGoogle || oauthTumblr
         hr
@@ -47,6 +48,8 @@ block body
               a.btn.btn-info(href='/login/tumblr/')
                 i.fa.fa-tumblr-square.fa-lg
                 |  Tumblr
-  div#loginForm
+
+  div.container.login-container
+    div#loginForm
 
   script(type="text/babel" src="views/login/index.js")
