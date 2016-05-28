@@ -6,9 +6,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var mongoose = require('mongoose');
 var config = require('./config');
 var router = require('./routes/users');
+
 var app = express();
+
+// configuration
+app.config = config;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,8 +25,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// passport 
 app.use(passport.initialize());
 
+// i18n
 i18n.configure({
   locales: ['en', 'zh'],
   directory: __dirname + '/locales',
@@ -30,11 +38,19 @@ i18n.configure({
 });
 app.use(i18n.init);
 
-app.config = config;
+// db
+app.db = mongoose.createConnection(config.mongodb.uri);
+app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
+app.db.once('open', function () {
+  // mongodb connected!
+  console.log("mongodb", config.mongodb.uri, "connected");
+});
 
+require('./models/models')(app, mongoose);
+
+// router
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/blog', express.static(path.join(__dirname, 'linkgoBlog/public')));
-
 app.use('/', router);
 
 // catch 404 and forward to error handler
@@ -67,6 +83,11 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+require("./utils/passport/passport")(app, passport);
+
+app.utils = {};
+app.utils.workflow = require("./utils/workflow");
 
 app.listen(4000, function() {
 });

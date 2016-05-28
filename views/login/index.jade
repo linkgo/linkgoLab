@@ -5,9 +5,11 @@ block head
   meta(name='author', content='linkgo.io')
   title linkgo.io
 
-  link(rel='stylesheet', href='views/login/index.css')
+  link(rel='stylesheet', href='/views/login/index.css')
+  link(rel='stylesheet', href='/vendor/semantic/semantic.css')
 
 block feet
+  script(src="/vendor/jquery/jquery.js")
   script(src="/vendor/react/react.js")
   script(src="/vendor/react-dom/react-dom.js")
   script(src='/views/login/index.min.js?#{cacheBreaker}')
@@ -49,7 +51,6 @@ block body
                 i.fa.fa-tumblr-square.fa-lg
                 |  Tumblr
 
-  div.container.login-container
     div#loginForm
 
   script(type="text/babel" src="views/login/index.js")

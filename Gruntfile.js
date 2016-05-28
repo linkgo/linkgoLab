@@ -26,7 +26,7 @@ module.exports = function(grunt) {
               },
               {
                 expand: true, cwd: './node_modules/semantic-ui/dist/',
-                src: ['semantic.css', 'semantic.js'], dest: './public/vendor/semantic/'
+                src: ['semantic.css', 'semantic.js', 'themes/default/assets/fonts/icons.*' ], dest: './public/vendor/semantic/'
               },
               {
                 expand: true, cwd: './node_modules/jquery/dist/',
@@ -184,8 +184,11 @@ module.exports = function(grunt) {
                 tasks: ['uglify'],
             },
             serverJS: {
-               files: ['views/**/*.js'],
-               tasks: ['newer:jshint:server']
+                files: [
+                  'views/**/*.js',
+                  './utils/**/*.js',
+                ],
+                tasks: ['newer:jshint:server']
             },
             allLess: {
                 files: [

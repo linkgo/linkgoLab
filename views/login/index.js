@@ -15,21 +15,18 @@ exports.init = function(req, res){
   }
   else {
     res.render('login/index', {
-      oauthMessage: ''
-/*
-      ,
+      oauthMessage: '',
       oauthTwitter: !!req.app.config.oauth.twitter.key,
       oauthGitHub: !!req.app.config.oauth.github.key,
       oauthFacebook: !!req.app.config.oauth.facebook.key,
       oauthGoogle: !!req.app.config.oauth.google.key,
       oauthTumblr: !!req.app.config.oauth.tumblr.key
-*/
     });
   }
 };
 
 exports.login = function(req, res){
-  var workflow = req.app.utility.workflow(req, res);
+  var workflow = req.app.utils.workflow(req, res);
 
   workflow.on('validate', function() {
     if (!req.body.username) {
@@ -44,7 +41,8 @@ exports.login = function(req, res){
       return workflow.emit('response');
     }
 
-    workflow.emit('abuseFilter');
+    //workflow.emit('abuseFilter');
+    workflow.emit('attemptLogin');
   });
 
   workflow.on('abuseFilter', function() {
@@ -88,6 +86,7 @@ exports.login = function(req, res){
   });
 
   workflow.on('attemptLogin', function() {
+    console.log("here attemptLogin");
     req._passport.instance.authenticate('local', function(err, user, info) {
       if (err) {
         return workflow.emit('exception', err);
