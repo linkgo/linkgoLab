@@ -2,22 +2,21 @@ var LoginForm = React.createClass({
   
   getInitialState: function() {
     return {
-      email: 'test@test.com',
+      username: 'test@test.com',
       password: '123456',
-      showPwdSpan: false,
-      showEmailSpan: false,
-      testValue: 'zero',
+      showPwdHelpSpan: false,
+      showUsernameHelpSpan: false,
       loginRes: {
         success: false,
         errors: [],
         errfor: {}
-      }
+      },
     };
   },
 
-  emailChange: function(event) {
-    this.setState({email: event.target.value});
-    //console.log("email", event.target.value);
+  usernameChange: function(event) {
+    this.setState({username: event.target.value});
+    //console.log("username", event.target.value);
   },
 
   passwordChange: function(event) {
@@ -25,20 +24,20 @@ var LoginForm = React.createClass({
     //console.log("password", event.target.value);
   },
 
-  submit: function(data) {
+  submit: function(event) {
     event.preventDefault();
-    var email = this.state.email.trim();
+    var username = this.state.username.trim();
     var password = this.state.password.trim();
-    var url = "/login";
     var updateRes = function(res) {
       this.setState({loginRes: res});
     }
-    if (!email || !password) {
+    if (!username || !password) {
       return;
     }
+    var url = '/login';
     $.post(url,
       {
-        "username": email,
+        "username": username,
         "password": password
       },
       function (res, status) {
@@ -76,33 +75,33 @@ var LoginForm = React.createClass({
           
         <div className="ui attached message">
           <div className="header">
-            Link and Go
+            Sign In
           </div>
         </div>
 
         <form className="ui form attached segment login-form" onSubmit={this.submit} >
           <div className="field">
-            <label>Email Address</label>
-            <input type="email" className="form-control" placeholder="Enter your email address here"
-                  email={this.state.email} onChange={this.emailChange} />
+            <label>Username</label>
+            <input type="text" className="form-control" placeholder="Enter your username"
+                  username={this.state.username} onChange={this.usernameChange} />
             {
-              this.state.showEmailSpan ? 
-              <span className="help-block">help email address</span> : null
+              this.state.showUsernameHelpSpan ? 
+              <span className="help-block">help username</span> : null
             }
           </div>
           <div className="field">
             <label>Password</label>
-            <input type="password" className="form-control" placeholder="Enter password here"
-                  email={this.state.password} onChange={this.passwordChange} />
+            <input type="password" className="form-control" placeholder="Enter your password"
+                  password={this.state.password} onChange={this.passwordChange} />
             {
-              this.state.showPwdSpan ? 
+              this.state.showPwdHelpSpan ? 
               <span className="help-block">help password</span> : null
             }
           </div>
           <div className="field button">
             <div className="row">
               <button type="submit" className="ui button">Sign In</button>
-              <button className="ui button right">Sign Up</button>
+              <a className="ui button right" href="/signup/">Sign Up</a>
             </div>
           </div>
         </form>
@@ -114,10 +113,7 @@ var LoginForm = React.createClass({
   }
 });
 
-
-setInterval(function() {
-  ReactDOM.render(
-    <LoginForm name="someone" date={new Date()} />,
-    document.getElementById('loginForm')
-  );
-}, 500);
+ReactDOM.render(
+  <LoginForm />,
+  document.getElementById('loginForm')
+);

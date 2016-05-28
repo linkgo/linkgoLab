@@ -86,8 +86,10 @@ app.use(function(err, req, res, next) {
 
 require("./utils/passport/passport")(app, passport);
 
-app.utils = {};
-app.utils.workflow = require("./utils/workflow");
+app.utility = {};
+app.utility.sendmail = require('./utils/sendmail');
+app.utility.slugify = require('./utils/slugify');
+app.utility.workflow = require('./utils/workflow');
 
 app.listen(4000, function() {
 });

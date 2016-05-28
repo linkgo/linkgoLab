@@ -1,0 +1,19 @@
+extends ../layout
+
+block head
+  meta(name='description', content='linkgo.io web')
+  meta(name='author', content='linkgo.io')
+  title linkgo.io
+
+  link(rel='stylesheet', href='/views/signup/index.css')
+  link(rel='stylesheet', href='/vendor/semantic/semantic.css')
+
+block feet
+  script(src="/vendor/jquery/jquery.js")
+  script(src="/vendor/react/react.js")
+  script(src="/vendor/react-dom/react-dom.js")
+  script(src='/views/signup/index.min.js?#{cacheBreaker}')
+
+block body
+  div#signupForm
+  script(type="text/babel" src="/views/signup/index.js")

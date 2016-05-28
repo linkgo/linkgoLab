@@ -1,16 +1,20 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var LoginForm = React.createClass({
-  displayName: 'LoginForm',
+var SignupForm = React.createClass({
+  displayName: 'SignupForm',
 
 
   getInitialState: function getInitialState() {
     return {
-      username: 'test@test.com',
+      username: 'testman',
+      email: 'test@test.com',
       password: '123456',
-      showPwdHelpSpan: false,
+      passwordConfirm: '123456',
       showUsernameHelpSpan: false,
+      showEmailHelpSpan: false,
+      showPwdHelpSpan: false,
+      showPwdConfirmHelpSpan: false,
       loginRes: {
         success: false,
         errors: [],
@@ -24,68 +28,55 @@ var LoginForm = React.createClass({
     //console.log("username", event.target.value);
   },
 
+  emailChange: function emailChange(event) {
+    this.setState({ email: event.target.value });
+    //console.log("email", event.target.value);
+  },
+
   passwordChange: function passwordChange(event) {
     this.setState({ password: event.target.value });
     //console.log("password", event.target.value);
   },
 
+  passwordConfirmChange: function passwordConfirmChange(event) {
+    this.setState({ passwordConfirm: event.target.value });
+    //console.log("passwordConfirm", event.target.value});
+  },
+
   submit: function submit(event) {
     event.preventDefault();
     var username = this.state.username.trim();
+    var email = this.state.email.trim();
     var password = this.state.password.trim();
-    var updateRes = function updateRes(res) {
-      this.setState({ loginRes: res });
-    };
-    if (!username || !password) {
+    if (!username || !email || !password) {
       return;
     }
-    var url = '/login';
+    var url = '/signup';
     $.post(url, {
       "username": username,
+      "email": email,
       "password": password
     }, function (res, status) {
       console.log(res);
-      this.setState({ loginRes: res });
     }.bind(this));
   },
 
   render: function render() {
-
-    var errorMessages = this.state.loginRes.errors.map(function (errorMsg, index) {
-      return React.createElement(
-        'div',
-        { className: 'row', key: index },
-        React.createElement('i', { className: 'icon warning circle' }),
-        errorMsg
-      );
-    });
-
-    var errorMessagesDiv;
-    if (this.state.loginRes.errors.length == 0) {
-      errorMessagesDiv = null;
-    } else {
-      errorMessagesDiv = React.createElement(
-        'div',
-        { className: 'ui bottom attached warning message' },
-        errorMessages
-      );
-    }
-
     return React.createElement(
       'div',
-      { className: 'container login-container' },
+      { className: 'container signup-container' },
       React.createElement(
         'div',
         { className: 'ui attached message' },
         React.createElement(
           'div',
           { className: 'header' },
-          'Sign In'
+          'Sign Up'
         )
       ),
       React.createElement(
         'form',
-        { className: 'ui form attached segment login-form', onSubmit: this.submit },
+        { className: 'ui form attached segment signup-form', onSubmit: this.submit },
         React.createElement(
           'div',
           { className: 'field' },
@@ -94,8 +85,8 @@ var LoginForm = React.createClass({
             null,
             'Username'
           ),
-          React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Enter your username',
-            username: this.state.username, onChange: this.usernameChange }),
+          React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pick a username',
+            email: this.state.username, onChange: this.usernameChange }),
           this.state.showUsernameHelpSpan ? React.createElement(
             'span',
             { className: 'help-block' },
@@ -108,14 +99,46 @@ var LoginForm = React.createClass({
           React.createElement(
             'label',
             null,
+            'Email'
+          ),
+          React.createElement('input', { type: 'email', className: 'form-control', placeholder: 'Enter your email address',
+            email: this.state.email, onChange: this.emailChange }),
+          this.state.showEmailHelpSpan ? React.createElement(
+            'span',
+            { className: 'help-block' },
+            'help email address'
+          ) : null
+        ),
+        React.createElement(
+          'div',
+          { className: 'field' },
+          React.createElement(
+            'label',
+            null,
             'Password'
           ),
-          React.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Enter your password',
-            password: this.state.password, onChange: this.passwordChange }),
+          React.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Choose a password',
+            email: this.state.password, onChange: this.passwordChange }),
           this.state.showPwdHelpSpan ? React.createElement(
             'span',
             { className: 'help-block' },
             'help password'
+          ) : null
+        ),
+        React.createElement(
+          'div',
+          { className: 'field' },
+          React.createElement(
+            'label',
+            null,
+            'Password Confirm'
+          ),
+          React.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Enter the password you choose again',
+            email: this.state.passwordConfirm, onChange: this.passwordConfirmChange }),
+          this.state.showPwdConfirmHelpSpan ? React.createElement(
+            'span',
+            { className: 'help-block' },
+            'help passwordConfirm'
           ) : null
         ),
         React.createElement(
@@ -127,21 +150,15 @@ var LoginForm = React.createClass({
             React.createElement(
               'button',
               { type: 'submit', className: 'ui button' },
-              'Sign In'
-            ),
-            React.createElement(
-              'a',
-              { className: 'ui button right', href: '/signup/' },
               'Sign Up'
             )
           )
         )
-      ),
-      errorMessagesDiv
+      )
     );
   }
 });
 
-ReactDOM.render(React.createElement(LoginForm, null), document.getElementById('loginForm'));
+ReactDOM.render(React.createElement(SignupForm, null), document.getElementById('signupForm'));
 
 },{}]},{},[1]);

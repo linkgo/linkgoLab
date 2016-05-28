@@ -20,8 +20,8 @@ exports = module.exports = function(req, res) {
   });
 
   workflow.on('response', function() {
-    console.log('response', workflow.outcome);
     workflow.outcome.success = !workflow.hasErrors();
+    console.log('response', workflow.outcome);
     res.send(workflow.outcome);
   });
 
