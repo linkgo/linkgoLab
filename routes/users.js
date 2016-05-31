@@ -9,4 +9,6 @@ router.post('/login/', require('../views/login/index').login);
 router.get('/signup/', require('../views/signup/index').init);
 router.post('/signup/', require('../views/signup/index').signup);
 
+router.get('/logout', require('../views/logout/index').init);
+
 module.exports = router;

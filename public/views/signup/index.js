@@ -52,12 +52,17 @@ var SignupForm = React.createClass({
       return;
     }
     var url = '/signup';
+    console.log(username, email, password);
     $.post(url, {
       "username": username,
       "email": email,
       "password": password
     }, function (res, status) {
-      console.log(res);
+      if (res.success) {
+        location.href = "/login";
+      } else {
+        this.setState({ loginRes: res });
+      }
     }.bind(this));
   },
 

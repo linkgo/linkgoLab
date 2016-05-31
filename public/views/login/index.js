@@ -45,7 +45,11 @@ var LoginForm = React.createClass({
       "password": password
     }, function (res, status) {
       console.log(res);
-      this.setState({ loginRes: res });
+      if (res.success) {
+        location.href = "/login";
+      } else {
+        this.setState({ loginRes: res });
+      }
     }.bind(this));
   },
 

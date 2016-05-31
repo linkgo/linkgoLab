@@ -1,15 +1,17 @@
 {
-	"Welcome": "Welcome",
-	"brand": "linkgo.io",
-	"home": {
-                "blog": "Blog",
-		"slogan": "Smart Solution For Future Business",
-		"description": "linkgo.io design and implement smart solutions to improve your business",
-		"find_out_more": "Find Out More",
-		"email_us": "Email To Us",
-		"category_solution": "solution",
-		"category_device": "device",
-		"project_name_distributed_data_collection": "Distributed Data Collection",
-		"project_name_iot_device": "IOT Device"
-	}
+  "Welcome": "Welcome",
+  "brand": "linkgo.io",
+  "home": {
+    "blog": "Blog",
+    "login": "login",
+    "logout": "logout",
+    "slogan": "Smart Solution For Future Business",
+    "description": "linkgo.io design and implement smart solutions to improve your business",
+    "find_out_more": "Find Out More",
+    "email_us": "Email To Us",
+    "category_solution": "solution",
+    "category_device": "device",
+    "project_name_distributed_data_collection": "Distributed Data Collection",
+    "project_name_iot_device": "IOT Device"
+  }
 }

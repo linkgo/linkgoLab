@@ -7,6 +7,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var mongoStore = require('connect-mongo')(session);
+var csrf = require('csurf');
+
 var config = require('./config');
 var router = require('./routes/users');
 
@@ -19,15 +23,30 @@ app.config = config;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// db
+app.db = mongoose.createConnection(config.mongodb.uri);
+app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
+app.db.once('open', function () {
+  // mongodb connected!
+  console.log("mongodb", config.mongodb.uri, "connected");
+});
+// models
+require('./models/models')(app, mongoose);
+
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+// middleware
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// passport 
-app.use(passport.initialize());
+app.use(cookieParser(config.cryptoKey));
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: config.cryptoKey,
+  store: new mongoStore({ url: config.mongodb.uri })
+}));
 
 // i18n
 i18n.configure({
@@ -38,15 +57,22 @@ i18n.configure({
 });
 app.use(i18n.init);
 
-// db
-app.db = mongoose.createConnection(config.mongodb.uri);
-app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
-app.db.once('open', function () {
-  // mongodb connected!
-  console.log("mongodb", config.mongodb.uri, "connected");
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(csrf({ cookie: { signed: true } }));
+//app.use(csrf());
+
+// locals
+app.use(function(req, res, next) {
+  res.cookie('_csrfToken', req.csrfToken());
+  res.locals.user = {};
+  res.locals.user.defaultReturnUrl = req.user && req.user.defaultReturnUrl();
+  res.locals.user.username = req.user && req.user.username;
+  next();
 });
 
-require('./models/models')(app, mongoose);
+// passport
+require("./utils/passport/passport")(app, passport);
 
 // router
 app.use(express.static(path.join(__dirname, 'public')));
@@ -84,7 +110,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-require("./utils/passport/passport")(app, passport);
 
 app.utility = {};
 app.utility.sendmail = require('./utils/sendmail');

@@ -6,11 +6,13 @@ var getReturnUrl = function(req) {
     returnUrl = req.session.returnUrl;
     delete req.session.returnUrl;
   }
+  console.log("returnUrl:", returnUrl);
   return returnUrl;
 };
 
 exports.init = function(req, res){
   if (req.isAuthenticated()) {
+    console.log(req.user);
     res.redirect(getReturnUrl(req));
   }
   else {
@@ -109,6 +111,7 @@ exports.login = function(req, res){
             return workflow.emit('exception', err);
           }
 
+          
           workflow.emit('response');
         });
       }

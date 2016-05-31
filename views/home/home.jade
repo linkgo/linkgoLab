@@ -13,7 +13,6 @@ block head
     link(href='http://fonts.useso.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
 
 block feet
-    script(src="/vendor/jquery/jquery.js")
     script(src="/vendor/fittext/jquery.fittext.js")
     script(src="/vendor/bootstrap/js/affix.js")
     script(src='/views/home/home.min.js')
@@ -34,6 +33,11 @@ block body
           ul.nav.navbar-nav.navbar-right
             li
               a(href="/blog/archives")= __("home.blog")
+            li
+              if user && user.username
+                a(href="/logout")= user.username
+              else
+                a(href="/login")= __("home.login")
 
     header
       .header-content
@@ -41,6 +45,7 @@ block body
           h1= __("home.slogan")
           hr
           p= __("home.description")
+          p=testval
           a.btn.btn-primary.btn-xl(href='#about')= __("home.find_out_more")
 
     section#portfolio.no-padding

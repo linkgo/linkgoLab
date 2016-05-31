@@ -3,6 +3,8 @@
 
 var app; //the main declaration
 
+app = app || {};
+
 (function() {
   'use strict';
 
@@ -15,6 +17,7 @@ var app; //the main declaration
     $(document).ajaxStop(function(){  $('.ajax-spinner').hide(); });
     $.ajaxSetup({
       beforeSend: function (xhr) {
+        console.log("here before send");
         xhr.setRequestHeader('x-csrf-token', $.cookie('_csrfToken'));
       }
     });

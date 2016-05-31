@@ -17,14 +17,13 @@ exports.init = function(req, res){
 };
 
 exports.signup = function(req, res){
-  var workflow = req.app.utils.workflow(req, res);
+  var workflow = req.app.utility.workflow(req, res);
 
   workflow.on('validate', function() {
     if (!req.body.username) {
       workflow.outcome.errfor.username = 'required';
     }
     else if (!/^[a-zA-Z0-9\-\_]+$/.test(req.body.username)) {
-      console.log(req.body.username);
       workflow.outcome.errfor.username = 'only use letters, numbers, \'-\', \'_\'';
     }
 
@@ -77,7 +76,6 @@ exports.signup = function(req, res){
   });
 
   workflow.on('createUser', function() {
-    console.log('here');
     req.app.db.models.User.encryptPassword(req.body.password, function(err, hash) {
       if (err) {
         return workflow.emit('exception', err);

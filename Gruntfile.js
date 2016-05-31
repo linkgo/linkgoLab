@@ -33,6 +33,10 @@ module.exports = function(grunt) {
                 src: ['jquery.js'], dest: './public/vendor/jquery/'
               },
               {
+                expand: true, cwd: './node_modules/jquery.cookie/',
+                src: ['jquery.cookie.js'], dest: './public/vendor/jquery.cookie/'
+              },
+              {
                 expand: true, cwd: './node_modules/fittext.js/',
                 src: ['jquery.fittext.js'], dest: './public/vendor/fittext/'
               },
