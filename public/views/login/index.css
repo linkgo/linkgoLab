@@ -1,1 +1,18 @@
-.login-container{max-width:300px;margin-right:auto;margin-left:auto;margin-top:10%}.login-container .login-form{margin-right:auto;margin-left:auto}.login-container .login-form .field{max-width:100%;margin-right:auto !important;margin-left:auto !important}.login-container .login-form .field .right{float:right}
+.login-container {
+  max-width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10%;
+}
+.login-container .login-form {
+  margin-right: auto;
+  margin-left: auto;
+}
+.login-container .login-form .field {
+  max-width: 100%;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.login-container .login-form .field .right {
+  float: right;
+}

@@ -115,9 +115,6 @@ module.exports = function(grunt) {
             }
         },
         less: {
-            options: {
-              compress: true
-            },
             layouts: {
               files: {
                   "./linkgoBlog/themes/bootstrap-blog/source/css/linkgo-blog.css": [
@@ -265,6 +262,6 @@ module.exports = function(grunt) {
 
 
     // Default task(s).
-    grunt.registerTask('default', ['newer:browserify', 'copy', 'newer:uglify', 'newer:less', 'usebanner', 'concurrent']);
+    grunt.registerTask('default', ['newer:browserify', 'copy', 'newer:uglify', 'newer:less', 'concurrent']);
 
 };
