@@ -48,10 +48,14 @@ app.use(session({
   store: new mongoStore({ url: config.mongodb.uri })
 }));
 
+console.log(__dirname + '/locales');
+
 // i18n
 i18n.configure({
-  locales: ['en', 'zh'],
+  locales:['en', 'zh'],
   directory: __dirname + '/locales',
+  autoReload: true,
+  updateFiles: false,
   objectNotation: true,
   queryParameter: 'lang'
 });

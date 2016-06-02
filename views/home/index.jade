@@ -9,7 +9,6 @@ block head
   link(rel='stylesheet', type='text/css', href='/views/home/index.css')
   link(rel='stylesheet', type='text/css', href='/iconfonts/flaticon.css')
 
-
 block feet
   //script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js')
   script(src='/vendor/semantic/semantic.js')
@@ -24,39 +23,54 @@ block body
    .ui.fluid.container 
 
     .ui.inverted.masthead.centered.segment
-      .ui.grid
         .column
-          .ui.secondary.pointing.menu
-            a.logo.item
-              | startup
-            a.active.item
+          .ui.secondary.pointing.menu.mobile
+            .ui.dropdown.item
               i.flaticon-home
-              |  Home
-            a.item
-              i.flaticon-mail
-              |  Messages
-            a.item
-              i.flaticon-heart
-              |  Friends
+              | Home
+              i.dropdown.icon
+              .menu
+                a.item
+                  //i.flaticon-mail
+                  | Messages
+                a.item
+                  //i.flaticon-heart
+                  | Friends
 
             .right.menu
-              .item
-                .ui.icon.input
-                  input(placeholder='Search...', type='text')
-                  i.flaticon-position.link.icon
-              a.ui.item
-                | Logout
+              if user && user.username
+                a.ui.item
+                  i.user.icon
+                  = user.username
+              else
+                a.ui.item(href="/login")
+                  i.sign.in.icon
+                  = __("home.login")
+
+          .ui.secondary.pointing.menu.desktop
+            a.active.item
+              i.flaticon-home
+              = __("brand")
+            a.item
+              i.rss.icon
+              = __("home.blog")
+
+            .right.menu
+              if user && user.username
+                a.ui.item
+                  i.user.icon
+                  = user.username
+              else
+                a.ui.item(href="/login")
+                  i.sign.in.icon
+                  = __("home.login")
 
           .ui.hidden.transition.information
-            h1.ui.inverted.centered.header
-              | An Old Cat Can Learn New Tricks
-            p.ui.centered.lead
-              | At least he won't reach his highest potential unless
-              br
-              | you enroll him in Cat University's 2013 class.
-            a.large.basic.inverted.animated.fade.ui.button(href='#')
-              .visible.content Come to ICU 2013
-              .hidden.content Register Now
+            h1.ui.inverted.centered.header= __("home.slogan")
+            p.ui.centered.lead= __("home.description")
+            a.large.basic.inverted.animated.fade.ui.button(href='/login')
+              .visible.content= __("home.find_out_more")
+              .hidden.content= __("home.login")
             //.ui.centerted.image
             //  img(src='images/home/banner.png')
 
@@ -64,28 +78,30 @@ block body
       .ui.three.column.center.aligned.stackable.grid
         .column.column-feature
           .ui.icon.header
-            i.flaticon-connecting.icon
-            |               Courses
-          p Take your kitty to a cat-ducation course and learn how to treat her well.
+            i.tag.icon
+            = __("neurite.name")
           p
+            = __("neurite.description")
+          //p
             a.ui.button(href='#')
               | Learn
         .column.column-feature
           .ui.icon.header
-            i.flaticon-calendar.icon
-            |               Library
+            i.exchange.icon
+            = __("mqttCluster.name")
           p
-            | Dig through our cat library to found out amazing things you can do with your kitty.
-          p
+            = __("mqttCluster.description")
+          //p
             a.ui.green.right.labeled.icon.button(href='#')
               | Research
               i.right.flaticon-move.icon
         .column.column-feature
           .ui.icon.header
-            i.flaticon-speech.icon
-            |               Community
-          p Get feedback on your cat from a community of loving pet owners on our online...
+            i.bar.chart.icon
+            = __("dataCloud.name")
           p
+            = __("dataCloud.description")
+          //p
             a.ui.button(href='#')
               | Share
 
@@ -101,26 +117,24 @@ block body
 
     .ui.recent-works.vertical.segment
         .centered.column
-          h1.center.aligned.ui.inverted.header
-            | Recent Works
+          h2.center.aligned.ui.inverted.header
+            = __("home.recent-works")
           .ui.horizontal.divider
             i.white.flaticon-camera.icon
-          p.ui.centered.lead
-            | Checkout Our Recently Completed Works
-            br
-            | you will be amazed!.
+          //p.ui.centered.lead
+            | to see 
 
         .centered.column
           .ui.three.column.aligned.stackable.divided.grid
             .column
               .ui.card
                 .image
-                  img(src='images/home/totoro-horizontal.jpg')
+                  img(src='images/portfolio/iot3-650-350.png')
                 .content
-                  .header My Neighbor Totoro
+                  .header= __("weather-station.name")
                   .description
-                    | Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                .ui.two.bottom.attached.buttons
+                    = __("weather-station.description")
+                //.ui.two.bottom.attached.buttons
                   .ui.button
                     i.flaticon-plus.icon
                     |         Queue
@@ -131,12 +145,12 @@ block body
             .column
               .ui.card
                 .image
-                  img(src='images/home/totoro-horizontal.jpg')
+                  img(src='images/portfolio/iot1-650-350.png')
                 .content
-                  .header My Neighbor Totoro
+                  .header= __("factory-monitor.name")
                   .description
-                    | Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                .ui.two.bottom.attached.buttons
+                    = __("factory-monitor.description")
+                //.ui.two.bottom.attached.buttons
                   .ui.button
                     i.flaticon-plus.icon
                     |         Queue
@@ -146,12 +160,12 @@ block body
             .column
               .ui.card
                 .image
-                  img(src='images/home/totoro-horizontal.jpg')
+                  img(src='images/portfolio/iot2-650-350.png')
                 .content
-                  .header My Neighbor Totoro
+                  .header= __("bbb.name")
                   .description
-                    | Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
-                .ui.two.bottom.attached.buttons
+                    = __("bbb.description")
+                //.ui.two.bottom.attached.buttons
                   .ui.button
                     i.flaticon-plus.icon
                     |         Queue
@@ -159,8 +173,7 @@ block body
                     i.flaticon-play.icon
                     |         Watch
 
-
-    .ui.vertical.segment
+    //.ui.vertical.segment
       .ui.stackable.center.aligned.page.grid
         .row
           .eight.wide.column
@@ -232,34 +245,34 @@ block body
                   i.huge.flaticon-google.icon
                 .side
                   i.huge.flaticon-twitter.icon
+
     .ui.inverted.footer.vertical.segment.center
       .ui.stackable.center.aligned.page.grid
         .four.column.row
-          .column
+          //.column
             h5.ui.inverted.header Courses
             .ui.inverted.link.list
               a.item Registration
               a.item Course Calendar
               a.item Professors
-          .column
+          //.column
             h5.ui.inverted.header Library
             .ui.inverted.link.list
               a.item A-Z
               a.item Most Popular
               a.item Recently Changed
-          .column
+          //.column
             h5.ui.inverted.header Community
             .ui.inverted.link.list
               a.item BBS
               a.item Careers
               a.item Privacy Policy
           .column
-            h5.ui.inverted.header Designed By
-            addr
-              a.item(href='http://scripteden.com')
-                img(src='images/home/scripteden-logo-g.png', alt='Logo', style='height:20px')
+            h5.ui.inverted.header Made with love by
+            br
+            p linkgo.io
+            //addr
+              a.item(href='http://linkgo.io')
+                img(src='images/linkgo-logo-font-1600x480.png', alt='Logo', style='height:20px')
               br
-              a(href='http://scripteden.com/downloads/bootstrap/') Bootstrap Templates
-              br
-              a(href='http://scripteden.com/downloads/semantic-ui/') Semantic UI Templates
 

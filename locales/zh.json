@@ -12,6 +12,31 @@
     "category_solution": "解决方案",
     "category_device": "智能设备",
     "project_name_distributed_data_collection": "分布式数据采集",
-    "project_name_iot_device": "物联网设备"
+    "project_name_iot_device": "物联网设备",
+    "recent-works": "新鲜案例"
+  },
+  "neurite": {
+    "name": "Neurite",
+    "description": "与现实世界交互数据的无线节点"
+  },
+  "mqttCluster": {
+    "name": "MQTT 集群",
+    "description": "高效可靠的传输数据"
+  },
+  "dataCloud": {
+    "name": "数据云",
+    "description": "管理数据并进行实时互动"
+  },
+  "weather-station": {
+    "name": "Weather Station",
+    "description": "使用Neurite节点，只要有internet的地方，就可以获得实时气象数据"
+  },
+  "factory-monitor": {
+    "name": "Factory Monitor",
+    "description": "通过云端的仪表盘，你可以监控工厂每一个节点的状态，甚至自定义计划进行自动化管理"
+  },
+  "bbb": {
+    "name": "Boring Buck Button",
+    "description": "这不仅仅是一个无聊的小玩意，它让你获知周围小伙伴的潜在情绪，事实上，这是一种全新的互动方式"
   }
 }

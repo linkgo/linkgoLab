@@ -8,6 +8,9 @@ html {
 
 #home .segment h1 {
   font-size: 3em;   
+  @media (max-width: 768px) {
+    //font-size: 1.5em;
+  }
 }
 
 p.ui.centered.lead {
@@ -57,13 +60,16 @@ masthead menu
   background: linear-gradient(135deg,  rgba(24,42,115,1) 0%,rgba(33,138,174,1) 69%,rgba(32,167,172,1) 89%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#182a73', endColorstr='#20a7ac',GradientType=1 );
   border-radius: 0;
-  margin: 0em;
-  padding: 1rem 0rem 0;
   .column {
     position: relative;
+    p {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
   .information {
-    margin: 6em 1em 0 1em;
+    margin: 6em auto 6em auto;
     text-align: center;
     .button{
       margin: 40px auto 20px auto; 
@@ -74,7 +80,7 @@ masthead menu
   }
 }
 
-#home .ui.secondary.pointing.menu {
+#home .ui.secondary.pointing.menu.desktop {
   border-bottom: 1px solid rgba(255,255,255, 0.1);
   .item{
     padding: 1em 0;
@@ -94,8 +100,35 @@ masthead menu
   .item .ui.input input {
     color: rgba(255,255,255,0.6); 
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
+#home .ui.secondary.pointing.menu.mobile {
+  border-bottom: 1px solid rgba(255,255,255, 0.1);
+  .item{
+    padding: 1em 0;
+    margin-left: 1em;
+    margin-right: 1em;
+    color: rgba(255,255,255,0.4);
+    border-color: rgba(255,255,255,0.1);
+    &:hover, active {
+        color: rgba(255,255,255,0.6);
+        border-color: rgba(255,255,255,0.6);
+    }
+  }
+  .item i{
+    margin-right: 3px;
+    color: rgba(255,255,255,0.6);
+  }
+  .item .ui.input input {
+    color: rgba(255,255,255,0.6); 
+  }
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
 
 /*-----------------
 feature segement
@@ -144,6 +177,7 @@ recent-works segment
       background: #fafafa;
       margin-left: auto;
       margin-right: auto;
+      min-height: 350px;
   }
   p {
     color: #ffffff;
@@ -179,54 +213,3 @@ recent-works segment
 }
 
 
-/*******************************
-          Responsive
-*******************************/
-
-/* Mobile Only */
-@media only screen and (max-width : 768px) {
-
-  #home .menu .right.menu > .item {
-    display: none;
-  }
-
-  #home .menu .right.menu > .mobile.item {
-    display: block;
-  }
-  #home .menu .right.menu > .mobile.item .menu {
-    left: auto;
-    right: 0em;
-  }
-
-  #home h1 {
-    font-size: 1.5em;
-  }
-
-  #home .masthead.segment .image {
-    width: 170px;
-  }
-
-  #home .masthead.segment .button {
-    font-size: 1rem;
-  }
-
-  #home .overview .divided.grid .header .icon {
-    font-size: 1.5em;
-  }
-
-  #home .overview .divided.grid .header + p {
-    min-height: 0px;
-  }
-
-  #home .masthead.segment .column {
-    font-size: 0.7rem;
-  }
-
-  #home .masthead.segment .column p {
-    display: none;
-  }
-
-  #home .selection.list .right.floated {
-    display: none;
-  }
-}

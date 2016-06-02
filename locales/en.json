@@ -1,5 +1,5 @@
 {
-  "Welcome": "Welcome",
+  "welcome": "Welcome",
   "brand": "linkgo.io",
   "home": {
     "blog": "Blog",
@@ -12,6 +12,31 @@
     "category_solution": "solution",
     "category_device": "device",
     "project_name_distributed_data_collection": "Distributed Data Collection",
-    "project_name_iot_device": "IOT Device"
+    "project_name_iot_device": "IOT Device",
+    "recent-works": "Checkout Our Recent Works"
+  },
+  "neurite": {
+    "name": "Neurite",
+    "description": "Wireless node to input/output with real world"
+  },
+  "mqttCluster": {
+    "name": "MQTT Cluster",
+    "description": "Pass data with performance and reliability"
+  },
+  "dataCloud": {
+    "name": "Data cloud",
+    "description": "Manage & Interact with your data in real time"
+  },
+  "weather-station": {
+    "name": "Weather Station",
+    "description": "Base on Neurite, In every corner on this planet with internet, you can get the real time data like temperature, humidity."
+  },
+  "factory-monitor": {
+    "name": "Factory Monitor",
+    "description": "On a cloud dashboard, you can monitor and control your interesting point of your factory, or even set smart plan to do thing automatically."
+  },
+  "bbb": {
+    "name": "Boring Buck Button",
+    "description": "Made with boring of linkgo.io, this cool craft will show some potential emotion of guys besides you. In fact, it's a craft help people to interact in a new way."
   }
 }
