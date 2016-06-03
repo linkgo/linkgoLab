@@ -36,9 +36,7 @@ $(document)
     ;
 
     $('.ui.dropdown')
-      .dropdown({
-        on: 'hover'
-      })
+      .dropdown()
     ;
 
     $('.ui.form')

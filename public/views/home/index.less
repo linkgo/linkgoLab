@@ -107,7 +107,7 @@ masthead menu
 
 #home .ui.secondary.pointing.menu.mobile {
   border-bottom: 1px solid rgba(255,255,255, 0.1);
-  .item{
+  .item {
     padding: 1em 0;
     margin-left: 1em;
     margin-right: 1em;
@@ -116,6 +116,16 @@ masthead menu
     &:hover, active {
         color: rgba(255,255,255,0.6);
         border-color: rgba(255,255,255,0.6);
+    }
+    .menu {
+      background-color: transparent;
+      .item {
+        color: rgba(255,255,255,0.4) !important;
+        &:hover, active {
+            color: rgba(255,255,255,0.6);
+            border-color: rgba(255,255,255,0.6);
+        }
+      }
     }
   }
   .item i{

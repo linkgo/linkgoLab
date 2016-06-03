@@ -25,17 +25,14 @@ block body
     .ui.inverted.masthead.centered.segment
         .column
           .ui.secondary.pointing.menu.mobile
-            .ui.dropdown.item
+            .ui.floating.dropdown.item
               i.flaticon-home
-              | Home
+              = __("brand")
               i.dropdown.icon
               .menu
                 a.item
-                  //i.flaticon-mail
-                  | Messages
-                a.item
-                  //i.flaticon-heart
-                  | Friends
+                  i.rss.icon
+                  = __("home.blog")
 
             .right.menu
               if user && user.username

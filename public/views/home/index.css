@@ -114,6 +114,17 @@ masthead menu
   color: rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.6);
 }
+#home .ui.secondary.pointing.menu.mobile .item .menu {
+  background-color: transparent;
+}
+#home .ui.secondary.pointing.menu.mobile .item .menu .item {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+#home .ui.secondary.pointing.menu.mobile .item .menu .item:hover,
+#home .ui.secondary.pointing.menu.mobile .item .menu .item active {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
+}
 #home .ui.secondary.pointing.menu.mobile .item i {
   margin-right: 3px;
   color: rgba(255, 255, 255, 0.6);
