@@ -48,52 +48,6 @@ module.exports = function(grunt) {
                 expand: true, cwd: './node_modules/react-dom/dist/',
                 src: ['react-dom.js'], dest: './public/vendor/react-dom/'
               },
-/*
-              {
-                expand: true, cwd: 'node_modules/font-awesome/',
-                src: ['fonts/**', 'less/**'], dest: 'public/vendor/font-awesome/'
-              },
-              {
-                expand: true, cwd: 'node_modules/html5shiv/dist/',
-                src: ['html5shiv.js'], dest: 'public/vendor/html5shiv/'
-              },
-              {
-                expand: true, cwd: 'node_modules/jquery.cookie/',
-                src: ['jquery.cookie.js'], dest: 'public/vendor/jquery.cookie/'
-              },
-              {
-                expand: true, cwd: 'node_modules/moment/',
-                src: ['moment.js'], dest: 'public/vendor/momentjs/'
-              },
-              {
-                expand: true, cwd: 'node_modules/respond.js/src/',
-                src: ['respond.js'], dest: 'public/vendor/respond/'
-              },
-              {
-                expand: true, cwd: 'node_modules/underscore/',
-                src: ['underscore.js'], dest: 'public/vendor/underscore/'
-              }
-*/
-            ]
-          },
-          blog: {
-            files: [
-              {
-                expand: true, cwd: './public/vendor/bootstrap/', 
-                src: ['bootstrap.js'], dest: './linkgoBlog/themes/bootstrap-blog/source/js/'
-              },
-              {
-                expand: true, cwd: './public/views/home/',
-                src: ['home.js'], dest: './linkgoBlog/themes/bootstrap-blog/source/js/'
-              },
-              {
-                expand: true, cwd: './node_modules/jquery/dist/',
-                src: ['jquery.js'], dest: './linkgoBlog/themes/bootstrap-blog/source/js/'
-              },
-              {
-                expand: true, cwd: './node_modules/fittext.js/',
-                src: 'jquery.fittext.js', dest: './linkgoBlog/themes/bootstrap-blog/source/js/',
-              },
             ]
           },
         },
@@ -115,13 +69,6 @@ module.exports = function(grunt) {
             }
         },
         less: {
-            layouts: {
-              files: {
-                  "./linkgoBlog/themes/bootstrap-blog/source/css/linkgo-blog.css": [
-                    "./linkgoBlog/themes/bootstrap-blog/source/css/linkgo-blog.less"
-                  ]
-              }
-            },
             views: {
               files: [{
                 expand: true,
@@ -195,7 +142,6 @@ module.exports = function(grunt) {
                 files: [
                   './public/layouts/**/*.less',
                   './public/views/**/*.less',
-                  './linkgoBlog/themes/bootstrap-blog/source/css/*.less'
                 ],
                 tasks: ['newer:less'],
                 options: {
