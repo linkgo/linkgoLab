@@ -21,8 +21,12 @@ module.exports = function(grunt) {
           main: {
             files: [
               {
-                expand: true, cwd: './node_modules/bootstrap/',
-                src: ['js/**', 'less/**'], dest: './public/vendor/bootstrap/'
+                expand: true, cwd: './AdminLTE/bootstrap/',
+                src: ['**/**'], dest: './public/vendor/bootstrap/'
+              },
+              {
+                expand: true, cwd: './AdminLTE/dist/',
+                src: ['**/**'], dest: './public/vendor/AdminLTE/dist/'
               },
               {
                 expand: true, cwd: './node_modules/semantic-ui/dist/',
@@ -30,7 +34,7 @@ module.exports = function(grunt) {
               },
               {
                 expand: true, cwd: './node_modules/jquery/dist/',
-                src: ['jquery.js'], dest: './public/vendor/jquery/'
+                src: ['**/**'], dest: './public/vendor/jquery/'
               },
               {
                 expand: true, cwd: './node_modules/jquery.cookie/',

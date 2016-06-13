@@ -1,13 +1,13 @@
 'use strict';
 
-exports.port = process.env.PORT || 3000;
+exports.port = process.env.PORT || 4000;
 exports.mongodb = {
   uri: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/linkgo'
 };
-exports.companyName = 'Acme, Inc.';
-exports.projectName = 'Drywall';
+exports.companyName = 'Linkgo LLC.';
+exports.projectName = 'Linkgo Lab';
 exports.systemEmail = 'your@email.addy';
-exports.cryptoKey = 'k3yb0ardc4t';
+exports.cryptoKey = 'eb3EcomyI7';
 exports.loginAttempts = {
   forIp: 50,
   forIpAndUser: 7,

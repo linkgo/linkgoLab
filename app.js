@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var mongoose = require('mongoose');
+var ioredis = require('ioredis');
 var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);
 var csrf = require('csurf');
@@ -114,11 +115,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
 app.utility = {};
 app.utility.sendmail = require('./utils/sendmail');
 app.utility.slugify = require('./utils/slugify');
 app.utility.workflow = require('./utils/workflow');
+app.utility.redis = new ioredis();
+
+rawdata = require('./utils/rawdata/rawdata.js');
+rawdata.start('mqtt_node_pek1.0x61.me', app.utility.redis);
 
 app.listen(4000, function() {
 });

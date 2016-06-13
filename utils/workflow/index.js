@@ -6,7 +6,8 @@ exports = module.exports = function(req, res) {
   workflow.outcome = {
     success: false,
     errors: [],
-    errfor: {}
+    errfor: {},
+    data: {}
   };
 
   workflow.hasErrors = function() {
