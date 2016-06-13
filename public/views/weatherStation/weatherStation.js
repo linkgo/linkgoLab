@@ -5,17 +5,16 @@ var WeahterStation = React.createClass({
   displayName: "WeahterStation",
 
 
-  fetchData: function fetchData(key, location, count, callback) {
+  fetchDataTemp: function fetchDataTemp(key, count, callback) {
     var url = "/data";
     $.post(url, {
       "dataKey": key,
-      "location": location,
       "count": count
     }, callback.bind(this));
   },
 
-  createChart: function createChart(labels, data) {
-    var tempChartCanvas = document.getElementById("tempChart").getContext("2d");
+  createChart: function createChart(id, labels, data) {
+    var tempChartCanvas = document.getElementById(id).getContext("2d");
     var dataSet = {
       labels: labels,
       datasets: [{
@@ -31,31 +30,31 @@ var WeahterStation = React.createClass({
     this.setState({ tempChart: tempChart });
   },
 
-  initChart: function initChart(location) {
-    this.fetchData('weather', location, 6, function (res, status) {
+  initChartTemp: function initChartTemp() {
+    this.fetchDataTemp('office', 6, function (res, status) {
       if (res.success) {
         var ts = [];
         var temp = [];
         res.data.map(function (d, i) {
           var dj = JSON.parse(d);
-          temp.push(Number(dj.TEMP_NOW));
+          temp.push(Number(dj.temp));
           ts.push(dj.ts);
         });
         console.log(ts, temp);
-        this.createChart(ts, temp);
+        this.createChart('tempChart', ts, temp);
       } else {
         console.error(url, status, err.toString());
       }
     });
   },
 
-  updateChart: function updateChart(location) {
-    this.fetchData('weather', location, 1, function (res, status) {
+  updateChartTemp: function updateChartTemp() {
+    this.fetchDataTemp('office', 1, function (res, status) {
       if (res.success) {
         var dj = JSON.parse(res.data[0]);
-        console.log(Number(dj.TEMP_NOW), dj.ts);
+        console.log(Number(dj.temp), dj.ts);
         this.setState({ data: dj });
-        this.state.tempChart.addData([Number(dj.TEMP_NOW)], dj.ts);
+        this.state.tempChart.addData([Number(dj.temp)], dj.ts);
         this.state.tempChart.removeData();
       } else {
         console.error(url, status, err.toString());
@@ -68,8 +67,8 @@ var WeahterStation = React.createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    setTimeout(this.initChart, 200, 'Shanghai');
-    setInterval(this.updateChart, 5000, 'Shanghai');
+    setTimeout(this.initChartTemp, 200);
+    setInterval(this.updateChartTemp, 5000);
   },
 
   render: function render() {

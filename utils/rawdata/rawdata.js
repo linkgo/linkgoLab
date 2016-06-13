@@ -7,6 +7,7 @@ var redis;
 
 var topicRouter = {
   '/neuro/weather': onMsgNeuroWeather,
+  '/sensor/neurite-00016694/out': onMsgOffice,
 }
 
 module.exports.start = function(broker, redisClient) {
@@ -17,12 +18,9 @@ module.exports.start = function(broker, redisClient) {
 
   mqttClient.on('connect', function() {
     console.log("connected mqtt broker");
-    for (var k in topicRouter) {
-      console.log(k);
-      mqttClient.subscribe(k, function() {
-        console.log("sub", k);
-      });
-    }
+    mqttClient.subscribe(Object.keys(topicRouter), function(err, granted) {
+        console.log("sub", granted);
+    });
 
     mqttClient.on("message", onMsgMqtt);
   });
@@ -80,12 +78,21 @@ function onMsgMain(topicStr, message) {
   }
 }
 
+function onMsgOffice(message) {
+  if (message.toString().substring(0,7) == "checkin") {
+    return 
+  }
+  var data = JSON.parse(message);
+  var ts = moment().valueOf();
+  data.ts = ts;
+  redis.lpush('office', JSON.stringify(data));
+}
+
 function onMsgNeuroWeather(message) {
   //console.log("handle", message.toString());
   var data = JSON.parse(message);
   var ts = moment().valueOf();
   data.ts = ts;
-  //redis.zadd('weather-'+ data.City, ts, JSON.stringify(data));
   redis.lpush('weather-'+ data.City, JSON.stringify(data));
 }
 

@@ -4,7 +4,6 @@ exports.fetch = function(req, res) {
   //console.log(req.body);
   var redis = req.app.utility.redis;
   var dataKey = req.body.dataKey;
-  var location = req.body.location;
   var count = req.body.count;
 
   var workflow = req.app.utility.workflow(req, res);
@@ -15,8 +14,7 @@ exports.fetch = function(req, res) {
   });
 
   workflow.on('fetch', function() {
-    var rawdataKey = dataKey + '-' + location;
-    redis.lrange(rawdataKey, 0, count-1, function(err, result) {
+    redis.lrange(dataKey, 0, count-1, function(err, result) {
       if (err) {
         console.log(err, result);
         workflow.outcome.errors.push(err);
