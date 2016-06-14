@@ -109,7 +109,7 @@ var WeahterStation = React.createClass({
           </div>
 
           <div className="col-md-3 col-sm-6 col-xs-12">
-            <InfoBox bgColor="bg-yellow" icon="fa fa-rocket" infoName="Air Pressure" infoStr={this.state.data.pres} infoStrSuffix=" Pa" />
+            <InfoBox bgColor="bg-yellow" icon="fa fa-rocket" infoName="Pressure" infoStr={this.state.data.pres} infoStrSuffix=" hPa" />
           </div>
         </div>
 
@@ -127,7 +127,7 @@ var WeahterStation = React.createClass({
           </div>
 
           <div className="col-md-6">
-            <ChartBox chartTitle="Air Pressure" canvasId="presChart" />
+            <ChartBox chartTitle="Pressure" canvasId="presChart" />
           </div>
         </div>
 

@@ -123,7 +123,7 @@ var WeahterStation = React.createClass({
         React.createElement(
           "div",
           { className: "col-md-3 col-sm-6 col-xs-12" },
-          React.createElement(InfoBox, { bgColor: "bg-yellow", icon: "fa fa-rocket", infoName: "Air Pressure", infoStr: this.state.data.pres, infoStrSuffix: " Pa" })
+          React.createElement(InfoBox, { bgColor: "bg-yellow", icon: "fa fa-rocket", infoName: "Pressure", infoStr: this.state.data.pres, infoStrSuffix: " hPa" })
         )
       ),
       React.createElement(
@@ -147,7 +147,7 @@ var WeahterStation = React.createClass({
         React.createElement(
           "div",
           { className: "col-md-6" },
-          React.createElement(ChartBox, { chartTitle: "Air Pressure", canvasId: "presChart" })
+          React.createElement(ChartBox, { chartTitle: "Pressure", canvasId: "presChart" })
         )
       )
     );
