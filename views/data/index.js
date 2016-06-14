@@ -20,7 +20,7 @@ exports.fetch = function(req, res) {
         workflow.outcome.errors.push(err);
         return workflow.emit('response');
       } else {
-        console.log(result);
+        //console.log(result);
         workflow.outcome.data = result;
         return workflow.emit('response');
       }

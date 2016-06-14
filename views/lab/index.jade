@@ -1,14 +1,12 @@
 doctype html
-//
-  This is a starter template page. Use this page to start your new project from
-  scratch. This page gets rid of all links and provides the needed markup only.
+
 html
   head
     meta(charset='utf-8')
     |   
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     |   
-    title AdminLTE 2 | Starter
+    title Linkgo.io | Lab
     // Tell the browser to be responsive to screen width
     meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
     // Bootstrap 3.3.6
@@ -19,11 +17,8 @@ html
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css')
     // Theme style
     link(rel='stylesheet', href='vendor/AdminLTE/dist/css/AdminLTE.min.css')
-    //
-      AdminLTE Skins. We have chosen the skin-blue for this starter
-      page. However, you can choose any other skin. Make sure you
-      apply the skin class to the body tag so the changes take effect.
     link(rel='stylesheet', href='vendor/AdminLTE/dist/css/skins/skin-blue.min.css')
+
     // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     // WARNING: Respond.js doesn't work if you view the page via file://
     //if lt IE 9
@@ -31,45 +26,27 @@ html
       |   
       script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
 
-  //
-    BODY TAG OPTIONS:
-    =================
-    Apply one or more of the following classes to get the
-    desired effect
-    |---------------------------------------------------------|
-    | SKINS         | skin-blue                               |
-    |               | skin-black                              |
-    |               | skin-purple                             |
-    |               | skin-yellow                             |
-    |               | skin-red                                |
-    |               | skin-green                              |
-    |---------------------------------------------------------|
-    |LAYOUT OPTIONS | fixed                                   |
-    |               | layout-boxed                            |
-    |               | layout-top-nav                          |
-    |               | sidebar-collapse                        |
-    |               | sidebar-mini                            |
-    |---------------------------------------------------------|
   body.hold-transition.skin-blue.sidebar-mini
     .wrapper
       // Main Header
       header.main-header
         // Logo
-        a.logo(href='index2.html')
+        a.logo(href='//linkgo.io')
           // mini logo for sidebar mini 50x50 pixels
           span.logo-mini
-            b A
-            | LT
+            img(src="/images/linkgo-logo-48x48.png")
           // logo for regular state and mobile devices
           span.logo-lg
           | Linkgo.io
+
         // Header Navbar
         nav.navbar.navbar-static-top(role='navigation')
           // Sidebar toggle button
           a.sidebar-toggle(href='#', data-toggle='offcanvas', role='button')
             span.sr-only Toggle navigation
+        
           // Navbar Right Menu
-          .navbar-custom-menu
+          //.navbar-custom-menu
             ul.nav.navbar-nav
               // Messages: style can be found in dropdown.less
               li.dropdown.messages-menu
@@ -158,6 +135,7 @@ html
                   |               
                   li.footer
                     a(href='#') View all tasks
+
               // User Account Menu
               li.dropdown.user.user-menu
                 // Menu Toggle Button
@@ -194,16 +172,18 @@ html
                     |                 
                     .pull-right
                       a.btn.btn-default.btn-flat(href='#') Sign out
+
               // Control Sidebar Toggle Button
               li
                 a(href='#', data-toggle='control-sidebar')
                   i.fa.fa-gears
+
       // Left side column. contains the logo and sidebar
       aside.main-sidebar
         // sidebar: style can be found in sidebar.less
         section.sidebar
           // Sidebar user panel (optional)
-          .user-panel
+          //.user-panel
             .pull-left.image
               img.img-circle(src='vendor/AdminLTE/dist/img/user2-160x160.jpg', alt='User Image')
             |         
@@ -214,7 +194,7 @@ html
                 i.fa.fa-circle.text-success
                 |  Online
           // search form (Optional)
-          form.sidebar-form(action='#', method='get')
+          //form.sidebar-form(action='#', method='get')
             .input-group
               input.form-control(type='text', name='q', placeholder='Search...')
               |               
@@ -224,13 +204,13 @@ html
           // /.search form
           // Sidebar Menu
           ul.sidebar-menu
-            li.header HEADER
+            //li.header HEADER
             // Optionally, you can add icons to the links
             li.active
               a(href='#')
                 i.fa.fa-link
                 | 
-                span Weather Station
+                span Neurite Sensor
             |         
             //li
               a(href='#')
@@ -260,16 +240,15 @@ html
         // Content Header (Page header)
         section.content-header
           h1
-            | Page Header
-            small Optional description
-          |       
+            | Neurite Sensor
+            small
+              | all real time data from neurite sensor
           ol.breadcrumb
             li
               a(href='#')
                 i.fa.fa-dashboard
-                |  Level
-            |         
-            li.active Here
+                | Linkgo Lab
+            li.active Neurite Sensor
         // Main content
         #weatherStation
 
@@ -280,14 +259,11 @@ html
       // Main Footer
       footer.main-footer
         // To the right
-        .pull-right.hidden-xs
-          | Anything you want
-        // Default to the left
-        strong
-          | Copyright &copy; 2015 
-          a(href='#') Company
-          | .
-        |  All rights reserved.
+        //.pull-right.hidden-xs
+          | linkgo lab
+        | Made with love by 
+        strong linkgo.io
+
       // Control Sidebar
       aside.control-sidebar.control-sidebar-dark
         // Create the tabs
@@ -364,7 +340,7 @@ html
     // AdminLTE App
     script(src='vendor/AdminLTE/dist/js/app.min.js')
 
-    script(src="//www.chartjs.org/assets/Chart.min.js")
+    script(src='//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js')
 
     script(src="/vendor/react/react.js")
     script(src="/vendor/react-dom/react-dom.js")
