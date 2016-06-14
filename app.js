@@ -124,7 +124,8 @@ app.utility.redis = new ioredis();
 rawdata = require('./utils/rawdata/rawdata.js');
 rawdata.start('mqtt_node_pek1.0x61.me', app.utility.redis);
 
-app.listen(4000, function() {
+app.listen(app.config.port, function() {
+  console.log("listen", app.config.port);
 });
 
 module.exports = app;
