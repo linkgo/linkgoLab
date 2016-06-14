@@ -12,7 +12,7 @@ var WeahterStation = React.createClass({
   },
 
   createChart: function(id, labels, data) {
-    var tempChartCanvas = document.getElementById(id).getContext("2d");
+    var canvas = document.getElementById(id).getContext("2d");
     var dataSet = {
       labels: labels,
       datasets: [
@@ -26,37 +26,51 @@ var WeahterStation = React.createClass({
       ]
     };
 
-    var tempChart = new Chart(tempChartCanvas).Line(dataSet, {animationSteps: 15}); 
-    this.setState({tempChart: tempChart});
+    var chart = new Chart(canvas).Line(dataSet, {animationSteps: 15}); 
+    this.setState({[id]: chart});
   },
 
-
-  initChartTemp: function() {
-    this.fetchDataTemp('office', 6, function(res, status) {
+  initChart: function() {
+    this.fetchDataTemp('office', 20, function(res, status) {
       if (res.success) {
-        var ts = [];
-        var temp = [];
-        res.data.map(function(d, i) {
+        var data = {
+          ts: [],
+          temp: [],
+          humi: [],
+          pres: [],
+          light: [],
+        };
+        res.data.reverse().map(function(d, i) {
           var dj = JSON.parse(d);
-          temp.push(Number(dj.temp));
-          ts.push(dj.ts);
+          data.ts.push(moment(dj.ts).format('h:mm:ss'));
+          data.temp.push(Number(dj.temp));
+          data.humi.push(Number(dj.humi));
+          data.pres.push(Number(dj.pres));
+          data.light.push(Number(dj.light));
         });
-        console.log(ts, temp);
-        this.createChart('tempChart', ts, temp);
+        this.createChart('tempChart', data.ts, data.temp);
+        this.createChart('humiChart', data.ts, data.humi);
+        this.createChart('lightChart', data.ts, data.light);
+        this.createChart('presChart', data.ts, data.pres);
       } else {
         console.error(url, status, err.toString());
       }
     });
   },
 
-  updateChartTemp: function() {
+  updateChart: function() {
     this.fetchDataTemp('office', 1, function(res, status) {
       if (res.success) {
         var dj = JSON.parse(res.data[0]);
-        console.log(Number(dj.temp), dj.ts);
         this.setState({data: dj});
-        this.state.tempChart.addData([Number(dj.temp)], dj.ts);
+        this.state.tempChart.addData([Number(dj.temp)], moment(dj.ts).format('h:mm:ss'));
         this.state.tempChart.removeData();
+        this.state.humiChart.addData([Number(dj.humi)], moment(dj.ts).format('h:mm:ss'));
+        this.state.humiChart.removeData();
+        this.state.lightChart.addData([Number(dj.light)], moment(dj.ts).format('h:mm:ss'));
+        this.state.lightChart.removeData();
+        this.state.presChart.addData([Number(dj.pres)], moment(dj.ts).format('h:mm:ss'));
+        this.state.presChart.removeData();
       } else {
         console.error(url, status, err.toString());
       }
@@ -68,39 +82,55 @@ var WeahterStation = React.createClass({
   },
 
   componentDidMount: function() {
-    setTimeout(this.initChartTemp, 200);
-    setInterval(this.updateChartTemp, 5000);
+    setTimeout(this.initChart, 200);
+    setInterval(this.updateChart, 5000);
   },
 
   render: function() {
     return (
       <div className="section content">
-        <div className="row">
+        <div className="row" style={{"visibility": "hidden"}}>
           <p>{JSON.stringify(this.state.data)}</p>
         </div>
         <div className="row">
           <div className="col-md-3 col-sm-6 col-xs-12">
-            <InfoBox bgColor="bg-aqua" icon="ion ion-ios-gear-outline" infoName="CPU Traffic" infoStr="90" infoStrSuffix="%" />
+            <InfoBox bgColor="bg-aqua" icon="ion ion-thermometer" infoName="Temperature" infoStr={this.state.data.temp} infoStrSuffix=" ℃" />
           </div>
 
           <div className="col-md-3 col-sm-6 col-xs-12">
+            <InfoBox bgColor="bg-green" icon="ion ion-waterdrop" infoName="Humidity" infoStr={this.state.data.humi} infoStrSuffix=" %" />
           </div>
 
           <div className="clearfix visible-sm-block">
           </div>
 
           <div className="col-md-3 col-sm-6 col-xs-12">
+            <InfoBox bgColor="bg-maroon" icon="fa fa-sun-o" infoName="Light" infoStr={this.state.data.light} infoStrSuffix=" lux" />
           </div>
 
           <div className="col-md-3 col-sm-6 col-xs-12">
+            <InfoBox bgColor="bg-yellow" icon="fa fa-rocket" infoName="Air Pressure" infoStr={this.state.data.pres} infoStrSuffix=" Pa" />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-12">
-            <ChartBox />
+          <div className="col-md-6">
+            <ChartBox chartTitle="Temperature" canvasId="tempChart" />
+          </div>
+
+          <div className="col-md-6">
+            <ChartBox chartTitle="Humidity" canvasId="humiChart" />
+          </div>
+
+          <div className="col-md-6">
+            <ChartBox chartTitle="Light" canvasId="lightChart" />
+          </div>
+
+          <div className="col-md-6">
+            <ChartBox chartTitle="Air Pressure" canvasId="presChart" />
           </div>
         </div>
+
       </div>
     );
   }
@@ -126,35 +156,20 @@ var ChartBox = React.createClass({
       <div className="box">
         <div className="box-header with-border">
           <h3 className="box-title">History Report</h3>
-
           <div className="box-tools pull-right">
             <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-minus"></i>
             </button>
-{/*
-            <div className="btn-group">
-              <button type="button" className="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                <i className="fa fa-wrench"></i></button>
-              <ul className="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li className="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </div>
-            <button type="button" className="btn btn-box-tool" data-widget="remove"><i className="fa fa-times"></i></button>
-*/}
           </div>
         </div>
         <div className="box-body">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <p className="text-center">
-                <strong>Temperature</strong>
+                <strong>{this.props.chartTitle}</strong>
               </p>
 
               <div className="chart">
-                <canvas id="tempChart" style={{"height": "180px"}}></canvas>
+                <canvas id={this.props.canvasId} style={{"height": "180px"}}></canvas>
               </div>
             </div>
 {/*
@@ -241,6 +256,6 @@ var ChartBox = React.createClass({
 });
 
 ReactDOM.render(
-  <WeahterStation pollInterval={1000}/>,
+  <WeahterStation />,
   document.getElementById('weatherStation')
 );

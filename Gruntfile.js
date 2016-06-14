@@ -133,7 +133,7 @@ module.exports = function(grunt) {
                   'public/layouts/**/*.js', '!public/layouts/**/*.min.js',
                   'public/views/**/*.js', '!public/views/**/*.min.js'
                 ],
-                tasks: ['uglify'],
+                tasks: ['newer:uglify'],
             },
             serverJS: {
                 files: [

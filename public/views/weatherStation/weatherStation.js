@@ -1,6 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var WeahterStation = React.createClass({
   displayName: "WeahterStation",
 
@@ -14,7 +16,7 @@ var WeahterStation = React.createClass({
   },
 
   createChart: function createChart(id, labels, data) {
-    var tempChartCanvas = document.getElementById(id).getContext("2d");
+    var canvas = document.getElementById(id).getContext("2d");
     var dataSet = {
       labels: labels,
       datasets: [{
@@ -26,36 +28,51 @@ var WeahterStation = React.createClass({
       }]
     };
 
-    var tempChart = new Chart(tempChartCanvas).Line(dataSet, { animationSteps: 15 });
-    this.setState({ tempChart: tempChart });
+    var chart = new Chart(canvas).Line(dataSet, { animationSteps: 15 });
+    this.setState(_defineProperty({}, id, chart));
   },
 
-  initChartTemp: function initChartTemp() {
-    this.fetchDataTemp('office', 6, function (res, status) {
+  initChart: function initChart() {
+    this.fetchDataTemp('office', 20, function (res, status) {
       if (res.success) {
-        var ts = [];
-        var temp = [];
-        res.data.map(function (d, i) {
+        var data = {
+          ts: [],
+          temp: [],
+          humi: [],
+          pres: [],
+          light: []
+        };
+        res.data.reverse().map(function (d, i) {
           var dj = JSON.parse(d);
-          temp.push(Number(dj.temp));
-          ts.push(dj.ts);
+          data.ts.push(moment(dj.ts).format('h:mm:ss'));
+          data.temp.push(Number(dj.temp));
+          data.humi.push(Number(dj.humi));
+          data.pres.push(Number(dj.pres));
+          data.light.push(Number(dj.light));
         });
-        console.log(ts, temp);
-        this.createChart('tempChart', ts, temp);
+        this.createChart('tempChart', data.ts, data.temp);
+        this.createChart('humiChart', data.ts, data.humi);
+        this.createChart('lightChart', data.ts, data.light);
+        this.createChart('presChart', data.ts, data.pres);
       } else {
         console.error(url, status, err.toString());
       }
     });
   },
 
-  updateChartTemp: function updateChartTemp() {
+  updateChart: function updateChart() {
     this.fetchDataTemp('office', 1, function (res, status) {
       if (res.success) {
         var dj = JSON.parse(res.data[0]);
-        console.log(Number(dj.temp), dj.ts);
         this.setState({ data: dj });
-        this.state.tempChart.addData([Number(dj.temp)], dj.ts);
+        this.state.tempChart.addData([Number(dj.temp)], moment(dj.ts).format('h:mm:ss'));
         this.state.tempChart.removeData();
+        this.state.humiChart.addData([Number(dj.humi)], moment(dj.ts).format('h:mm:ss'));
+        this.state.humiChart.removeData();
+        this.state.lightChart.addData([Number(dj.light)], moment(dj.ts).format('h:mm:ss'));
+        this.state.lightChart.removeData();
+        this.state.presChart.addData([Number(dj.pres)], moment(dj.ts).format('h:mm:ss'));
+        this.state.presChart.removeData();
       } else {
         console.error(url, status, err.toString());
       }
@@ -67,8 +84,8 @@ var WeahterStation = React.createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    setTimeout(this.initChartTemp, 200);
-    setInterval(this.updateChartTemp, 5000);
+    setTimeout(this.initChart, 200);
+    setInterval(this.updateChart, 5000);
   },
 
   render: function render() {
@@ -77,7 +94,7 @@ var WeahterStation = React.createClass({
       { className: "section content" },
       React.createElement(
         "div",
-        { className: "row" },
+        { className: "row", style: { "visibility": "hidden" } },
         React.createElement(
           "p",
           null,
@@ -90,20 +107,47 @@ var WeahterStation = React.createClass({
         React.createElement(
           "div",
           { className: "col-md-3 col-sm-6 col-xs-12" },
-          React.createElement(InfoBox, { bgColor: "bg-aqua", icon: "ion ion-ios-gear-outline", infoName: "CPU Traffic", infoStr: "90", infoStrSuffix: "%" })
+          React.createElement(InfoBox, { bgColor: "bg-aqua", icon: "ion ion-thermometer", infoName: "Temperature", infoStr: this.state.data.temp, infoStrSuffix: " ℃" })
         ),
-        React.createElement("div", { className: "col-md-3 col-sm-6 col-xs-12" }),
+        React.createElement(
+          "div",
+          { className: "col-md-3 col-sm-6 col-xs-12" },
+          React.createElement(InfoBox, { bgColor: "bg-green", icon: "ion ion-waterdrop", infoName: "Humidity", infoStr: this.state.data.humi, infoStrSuffix: " %" })
+        ),
         React.createElement("div", { className: "clearfix visible-sm-block" }),
-        React.createElement("div", { className: "col-md-3 col-sm-6 col-xs-12" }),
-        React.createElement("div", { className: "col-md-3 col-sm-6 col-xs-12" })
+        React.createElement(
+          "div",
+          { className: "col-md-3 col-sm-6 col-xs-12" },
+          React.createElement(InfoBox, { bgColor: "bg-maroon", icon: "fa fa-sun-o", infoName: "Light", infoStr: this.state.data.light, infoStrSuffix: " lux" })
+        ),
+        React.createElement(
+          "div",
+          { className: "col-md-3 col-sm-6 col-xs-12" },
+          React.createElement(InfoBox, { bgColor: "bg-yellow", icon: "fa fa-rocket", infoName: "Air Pressure", infoStr: this.state.data.pres, infoStrSuffix: " Pa" })
+        )
       ),
       React.createElement(
         "div",
         { className: "row" },
         React.createElement(
           "div",
-          { className: "col-md-12" },
-          React.createElement(ChartBox, null)
+          { className: "col-md-6" },
+          React.createElement(ChartBox, { chartTitle: "Temperature", canvasId: "tempChart" })
+        ),
+        React.createElement(
+          "div",
+          { className: "col-md-6" },
+          React.createElement(ChartBox, { chartTitle: "Humidity", canvasId: "humiChart" })
+        ),
+        React.createElement(
+          "div",
+          { className: "col-md-6" },
+          React.createElement(ChartBox, { chartTitle: "Light", canvasId: "lightChart" })
+        ),
+        React.createElement(
+          "div",
+          { className: "col-md-6" },
+          React.createElement(ChartBox, { chartTitle: "Air Pressure", canvasId: "presChart" })
         )
       )
     );
@@ -178,20 +222,20 @@ var ChartBox = React.createClass({
           { className: "row" },
           React.createElement(
             "div",
-            { className: "col-md-8" },
+            { className: "col-md-12" },
             React.createElement(
               "p",
               { className: "text-center" },
               React.createElement(
                 "strong",
                 null,
-                "Temperature"
+                this.props.chartTitle
               )
             ),
             React.createElement(
               "div",
               { className: "chart" },
-              React.createElement("canvas", { id: "tempChart", style: { "height": "180px" } })
+              React.createElement("canvas", { id: this.props.canvasId, style: { "height": "180px" } })
             )
           )
         )
@@ -200,6 +244,6 @@ var ChartBox = React.createClass({
   }
 });
 
-ReactDOM.render(React.createElement(WeahterStation, { pollInterval: 1000 }), document.getElementById('weatherStation'));
+ReactDOM.render(React.createElement(WeahterStation, null), document.getElementById('weatherStation'));
 
 },{}]},{},[1]);
