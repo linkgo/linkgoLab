@@ -11,47 +11,80 @@ var WeahterStation = React.createClass({
     );
   },
 
-  createChart: function(id, labels, data) {
-    var canvas = document.getElementById(id).getContext("2d");
-    var dataSet = {
-      labels: labels,
-      datasets: [
-          {
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              data: data
-          }
-      ]
-    };
-
-    var chart = new Chart(canvas).Line(dataSet, {animationSteps: 15}); 
-    this.setState({[id]: chart});
+  createChart: function(id, data, title, yTitle) {
+        $([id]).highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+            },
+            title: {
+                text: title
+            },
+            xAxis: {
+                type: 'datetime',
+                //tickPixelInterval: 150
+                //categories: 
+            },
+            yAxis: {
+                title: {
+                    text: yTitle
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+/*
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+*/
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                id: id,
+                name: 'tempreature',
+                data: data
+            }]
+        });
   },
 
   initChart: function() {
-    this.fetchDataTemp('office', 20, function(res, status) {
+    this.fetchDataTemp('office', 10, function(res, status) {
       if (res.success) {
-        var data = {
-          ts: [],
-          temp: [],
-          humi: [],
-          pres: [],
-          light: [],
-        };
+        var tempData = [];
+        var humiData = [];
+        var lightData = [];
+        var presData = [];
+
         res.data.reverse().map(function(d, i) {
           var dj = JSON.parse(d);
-          data.ts.push(moment(dj.ts).format('h:mm:ss'));
-          data.temp.push(Number(dj.temp));
-          data.humi.push(Number(dj.humi));
-          data.pres.push(Number(dj.pres));
-          data.light.push(Number(dj.light));
+          var ts = dj.ts;
+          //var ts = moment(dj.ts).format('h:mm:ss');
+          tempData.push({x: ts, y: Number(dj.temp)});
+          humiData.push({x: ts, y: Number(dj.humi)});
+          lightData.push({x: ts, y: Number(dj.light)});
+          presData.push({x: ts, y: Number(dj.pres)});
         });
-        this.createChart('tempChart', data.ts, data.temp);
-        this.createChart('humiChart', data.ts, data.humi);
-        this.createChart('lightChart', data.ts, data.light);
-        this.createChart('presChart', data.ts, data.pres);
+
+        this.createChart('tempChart', tempData, '', '℃');
+        this.tempChart = $('#tempChart').highcharts();
+        this.createChart('humiChart', humiData, '', '%');
+        this.humiChart = $('#humiChart').highcharts();
+        this.createChart('lightChart', lightData, '', 'lux');
+        this.lightChart = $('#lightChart').highcharts();
+        this.createChart('presChart', presData, '', 'hPa');
+        this.presChart = $('#presChart').highcharts();
       } else {
         console.error(url, status, err.toString());
       }
@@ -63,14 +96,11 @@ var WeahterStation = React.createClass({
       if (res.success) {
         var dj = JSON.parse(res.data[0]);
         this.setState({data: dj});
-        this.state.tempChart.addData([Number(dj.temp)], moment(dj.ts).format('h:mm:ss'));
-        this.state.tempChart.removeData();
-        this.state.humiChart.addData([Number(dj.humi)], moment(dj.ts).format('h:mm:ss'));
-        this.state.humiChart.removeData();
-        this.state.lightChart.addData([Number(dj.light)], moment(dj.ts).format('h:mm:ss'));
-        this.state.lightChart.removeData();
-        this.state.presChart.addData([Number(dj.pres)], moment(dj.ts).format('h:mm:ss'));
-        this.state.presChart.removeData();
+        console.log(moment(dj.ts).format('h:mm:ss'), Number(dj.temp));
+        this.tempChart.get('tempChart').addPoint([dj.ts, Number(dj.temp)], true, true);
+        this.humiChart.get('humiChart').addPoint([dj.ts, Number(dj.humi)], true, true);
+        this.lightChart.get('lightChart').addPoint([dj.ts, Number(dj.light)], true, true);
+        this.presChart.get('presChart').addPoint([dj.ts, Number(dj.pres)], true, true);
       } else {
         console.error(url, status, err.toString());
       }
@@ -78,7 +108,11 @@ var WeahterStation = React.createClass({
   },
 
   getInitialState: function() {
-    return {data: {}};
+    return {
+      tempChart: {},
+      humiChart: {},
+      data: {}
+    };
   },
 
   componentDidMount: function() {
@@ -89,9 +123,11 @@ var WeahterStation = React.createClass({
   render: function() {
     return (
       <div className="section content">
-        <div className="row" style={{"visibility": "hidden"}}>
+{/*
+        <div className="row">
           <p>{JSON.stringify(this.state.data)}</p>
         </div>
+*/}
         <div className="row">
           <div className="col-md-3 col-sm-6 col-xs-12">
             <InfoBox bgColor="bg-aqua" icon="ion ion-thermometer" infoName="Temperature" infoStr={this.state.data.temp} infoStrSuffix=" ℃" />
@@ -169,7 +205,7 @@ var ChartBox = React.createClass({
               </p>
 
               <div className="chart">
-                <canvas id={this.props.canvasId} style={{"height": "180px"}}></canvas>
+                <div id={this.props.canvasId} style={{"height": "180px"}}></div>
               </div>
             </div>
 {/*
