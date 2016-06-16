@@ -62,6 +62,7 @@ var WeahterStation = React.createClass({
   initChart: function() {
     this.fetchDataTemp('office', 10, function(res, status) {
       if (res.success) {
+        var ts;
         var tempData = [];
         var humiData = [];
         var lightData = [];
@@ -69,7 +70,7 @@ var WeahterStation = React.createClass({
 
         res.data.reverse().map(function(d, i) {
           var dj = JSON.parse(d);
-          var ts = dj.ts;
+          ts = dj.ts;
           //var ts = moment(dj.ts).format('h:mm:ss');
           tempData.push({x: ts, y: Number(dj.temp)});
           humiData.push({x: ts, y: Number(dj.humi)});
@@ -77,6 +78,7 @@ var WeahterStation = React.createClass({
           presData.push({x: ts, y: Number(dj.pres)});
         });
 
+        this.ts = ts;
         this.createChart('tempChart', tempData, '', '℃');
         this.tempChart = $('#tempChart').highcharts();
         this.createChart('humiChart', humiData, '', '%');
@@ -96,11 +98,16 @@ var WeahterStation = React.createClass({
       if (res.success) {
         var dj = JSON.parse(res.data[0]);
         this.setState({data: dj});
-        console.log(moment(dj.ts).format('h:mm:ss'), Number(dj.temp));
-        this.tempChart.get('tempChart').addPoint([dj.ts, Number(dj.temp)], true, true);
-        this.humiChart.get('humiChart').addPoint([dj.ts, Number(dj.humi)], true, true);
-        this.lightChart.get('lightChart').addPoint([dj.ts, Number(dj.light)], true, true);
-        this.presChart.get('presChart').addPoint([dj.ts, Number(dj.pres)], true, true);
+        if (dj.ts == this.ts) {
+          console.log("skip same data");
+        } else {
+          this.ts = dj.ts;
+          console.log(moment(dj.ts).format('h:mm:ss'), Number(dj.temp));
+          this.tempChart.get('tempChart').addPoint([dj.ts, Number(dj.temp)], true, true);
+          this.humiChart.get('humiChart').addPoint([dj.ts, Number(dj.humi)], true, true);
+          this.lightChart.get('lightChart').addPoint([dj.ts, Number(dj.light)], true, true);
+          this.presChart.get('presChart').addPoint([dj.ts, Number(dj.pres)], true, true);
+        }
       } else {
         console.error(url, status, err.toString());
       }
