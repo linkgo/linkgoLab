@@ -74,13 +74,13 @@ var NeuriteSensor = React.createClass({
         });
 
         this.ts = ts;
-        this.createChart('tempChart', tempData, '', '℃');
+        this.createChart('tempChart', tempData, 'Temperature', '℃');
         this.tempChart = $('#tempChart').highcharts();
-        this.createChart('humiChart', humiData, '', '%');
+        this.createChart('humiChart', humiData, 'Humidity', '%');
         this.humiChart = $('#humiChart').highcharts();
-        this.createChart('lightChart', lightData, '', 'lux');
+        this.createChart('lightChart', lightData, 'Light', 'lux');
         this.lightChart = $('#lightChart').highcharts();
-        this.createChart('presChart', presData, '', 'hPa');
+        this.createChart('presChart', presData, 'Pressure', 'hPa');
         this.presChart = $('#presChart').highcharts();
       } else {
         console.error(url, status, err.toString());
@@ -202,9 +202,11 @@ var ChartBox = React.createClass({
         <div className="box-body">
           <div className="row">
             <div className="col-md-12">
+{/*
               <p className="text-center">
                 <strong>{this.props.chartTitle}</strong>
               </p>
+*/}
 
               <div className="chart">
                 <div id={this.props.canvasId} style={{"height": "180px"}}></div>
