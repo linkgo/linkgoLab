@@ -1,4 +1,4 @@
-var WeahterStation = React.createClass({
+var NeuriteSensor = React.createClass({
   
   fetchDataTemp: function(key, count, callback) {
     var url = "/data";
@@ -299,6 +299,6 @@ var ChartBox = React.createClass({
 });
 
 ReactDOM.render(
-  <WeahterStation />,
-  document.getElementById('weatherStation')
+  <NeuriteSensor />,
+  document.getElementById('neuriteSensor')
 );
