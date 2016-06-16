@@ -12,54 +12,49 @@ var NeuriteSensor = React.createClass({
   },
 
   createChart: function(id, data, title, yTitle) {
-        $([id]).highcharts({
-            chart: {
-                type: 'spline',
-                animation: Highcharts.svg, // don't animate in old IE
-                marginRight: 10,
-            },
-            title: {
-                text: title
-            },
-            xAxis: {
-                type: 'datetime',
-                //tickPixelInterval: 150
-                //categories: 
-            },
-            yAxis: {
-                title: {
-                    text: yTitle
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-/*
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                        Highcharts.numberFormat(this.y, 2);
-                }
-            },
-*/
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                id: id,
-                name: 'tempreature',
-                data: data
-            }]
-        });
+  $([id]).highcharts({
+      chart: {
+          type: 'spline',
+          animation: Highcharts.svg, // don't animate in old IE
+      },
+      title: {
+          text: title
+      },
+      xAxis: {
+          type: 'datetime',
+          //tickPixelInterval: 150
+          //categories: 
+      },
+      yAxis: {
+          title: {
+              text: yTitle
+          },
+          plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+          }]
+      },
+      legend: {
+          enabled: false
+      },
+      exporting: {
+          enabled: true
+      },
+      series: [{
+          id: id,
+          name: 'tempreature',
+          data: data
+      }]
+  });
   },
 
   initChart: function() {
+    Highcharts.setOptions({
+      global: {
+        useUTC: false
+      }
+    });
     this.fetchDataTemp('office', 10, function(res, status) {
       if (res.success) {
         var ts;

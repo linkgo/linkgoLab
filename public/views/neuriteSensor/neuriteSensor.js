@@ -17,9 +17,8 @@ var NeuriteSensor = React.createClass({
     $([id]).highcharts({
       chart: {
         type: 'spline',
-        animation: Highcharts.svg, // don't animate in old IE
-        marginRight: 10
-      },
+        animation: Highcharts.svg },
+      // don't animate in old IE
       title: {
         text: title
       },
@@ -38,20 +37,11 @@ var NeuriteSensor = React.createClass({
           color: '#808080'
         }]
       },
-      /*
-                  tooltip: {
-                      formatter: function () {
-                          return '<b>' + this.series.name + '</b><br/>' +
-                              Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                              Highcharts.numberFormat(this.y, 2);
-                      }
-                  },
-      */
       legend: {
         enabled: false
       },
       exporting: {
-        enabled: false
+        enabled: true
       },
       series: [{
         id: id,
@@ -62,6 +52,11 @@ var NeuriteSensor = React.createClass({
   },
 
   initChart: function initChart() {
+    Highcharts.setOptions({
+      global: {
+        useUTC: false
+      }
+    });
     this.fetchDataTemp('office', 10, function (res, status) {
       if (res.success) {
         var ts;
