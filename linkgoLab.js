@@ -122,7 +122,8 @@ app.utility.workflow = require('./utils/workflow');
 app.utility.redis = new ioredis();
 
 rawdata = require('./utils/rawdata/rawdata.js');
-rawdata.start('mqtt_node_pek1.0x61.me', app.utility.redis);
+rawdata.start('mqtt_node_pek2.0x61.me', app.utility.redis);
+//rawdata.start('mqtt.0x61.me', app.utility.redis);
 
 app.listen(app.config.port, function() {
   console.log("listen", app.config.port);
