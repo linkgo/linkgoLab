@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', require('../views/lab/index').get);
+router.get('/', require('../views/neuriteSensor/neuriteSensor').get);
+router.get('/neuriteSensor', require('../views/neuriteSensor/neuriteSensor').get);
+router.get('/boringBuckButton', require('../views/boringBuckButton/boringBuckButton').get);
 
 //router.get('/home/', require('../views/home/index').get);
 

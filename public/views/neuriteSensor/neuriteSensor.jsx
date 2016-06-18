@@ -84,6 +84,7 @@ var NeuriteSensor = React.createClass({
         this.presChart = $('#presChart').highcharts();
       } else {
         console.error(url, status, err.toString());
+        this.initChart();
       }
     });
   },
@@ -118,7 +119,8 @@ var NeuriteSensor = React.createClass({
   },
 
   componentDidMount: function() {
-    setTimeout(this.initChart, 200);
+    this.initChart();
+    //setTimeout(this.initChart, 10);
     setInterval(this.updateChart, 5000);
   },
 
