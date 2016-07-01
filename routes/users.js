@@ -1,28 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-//router.get('/', require('../views/neuriteSensor/neuriteSensor').get);
-//router.get('/neuriteSensor', require('../views/neuriteSensor/neuriteSensor').get);
-//router.get('/boringBuckButton', require('../views/boringBuckButton/boringBuckButton').get);
-//router.get('/newLink', require('../views/newLink/newLink').get);
-router.get('/test', function(req, res) {
-  req.session.returnUrl = '/';
-  res.render(
-    '../views/test/test'
-  );
-});
+router.get('/', require('./neuriteSensor').get);
+router.get('/neuriteSensor', require('./neuriteSensor').get);
+router.get('/boringBuckButton', require('./boringBuckButton').get);
+router.get('/newLink', require('./newLink').get);
 
-//router.get('/home/', require('../views/home/index').get);
+// router.get('/home/', require('./home').get);
+// router.get('/login/', require('./login').init);
+// router.post('/login/', require('./login').login);
+// router.get('/signup/', require('./signup').init);
+// router.post('/signup/', require('./signup').signup);
+// router.get('/logout', require('./logout').init);
 
-//router.get('/login/', require('../views/login/index').init);
-//router.post('/login/', require('../views/login/index').login);
-//
-//router.get('/signup/', require('../views/signup/index').init);
-//router.post('/signup/', require('../views/signup/index').signup);
-//
-//router.get('/logout', require('../views/logout/index').init);
-//
-//router.post('/data/', require('../views/data/index').fetch);
-
+router.post('/data/', require('./data').fetch);
 
 module.exports = router;

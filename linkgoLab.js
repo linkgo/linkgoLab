@@ -21,7 +21,7 @@ var app = express();
 app.config = config;
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './dist/views'));
 app.set('view engine', 'jade');
 
 // db
@@ -65,7 +65,6 @@ app.use(i18n.init);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(csrf({ cookie: { signed: true } }));
-//app.use(csrf());
 
 // locals
 app.use(function(req, res, next) {
@@ -80,8 +79,8 @@ app.use(function(req, res, next) {
 require("./utils/passport/passport")(app, passport);
 
 // router
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/blog', express.static(path.join(__dirname, 'linkgoBlog/public')));
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/', router);
 
 // catch 404 and forward to error handler
@@ -98,7 +97,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render('error/error', {
       message: err.message,
       error: err
     });
@@ -109,7 +108,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render('error/error', {
     message: err.message,
     error: {}
   });
@@ -123,7 +122,7 @@ app.utility.redis = new ioredis();
 
 rawdata = require('./utils/rawdata/rawdata.js');
 rawdata.start('mqtt_node_pek2.0x61.me', app.utility.redis);
-//rawdata.start('mqtt.0x61.me', app.utility.redis);
+rawdata.start('mqtt.0x61.me', app.utility.redis);
 
 app.listen(app.config.port, function() {
   console.log("listen", app.config.port);

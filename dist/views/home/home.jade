@@ -1,0 +1,275 @@
+extends ../layout
+
+block head
+  meta(name='description', content='linkgo.io web')
+  meta(name='author', content='linkgo.io')
+  title linkgo.io
+
+  link(rel='stylesheet', type='text/css', href='/vendor/semantic/semantic.css')
+  link(rel='stylesheet', type='text/css', href='/views/home/index.css')
+  link(rel='stylesheet', type='text/css', href='/iconfonts/flaticon.css')
+
+block feet
+  //script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js')
+  script(src='/vendor/semantic/semantic.js')
+  script(src='/views/home/index.js')
+  script.
+    $(function(){
+    $('.ui.card').popup();
+    });
+
+block body
+  #home
+   .ui.fluid.container 
+
+    .ui.inverted.masthead.centered.segment
+        .column
+          .ui.secondary.pointing.menu.mobile
+            .ui.floating.dropdown.item
+              i.flaticon-home
+              = __("brand")
+              i.dropdown.icon
+              .menu
+                a.item(href="http://blog.linkgo.io")
+                  i.rss.icon
+                  = __("home.blog")
+
+            .right.menu
+              if user && user.username
+                a.ui.item
+                  i.user.icon
+                  = user.username
+              else
+                a.ui.item(href="/login")
+                  i.sign.in.icon
+                  = __("home.login")
+
+          .ui.secondary.pointing.menu.desktop
+            a.active.item
+              i.flaticon-home
+              = __("brand")
+            a.item(href="http://blog.linkgo.io")
+              i.rss.icon
+              = __("home.blog")
+
+            .right.menu
+              if user && user.username
+                a.ui.item
+                  i.user.icon
+                  = user.username
+              else
+                a.ui.item(href="/login")
+                  i.sign.in.icon
+                  = __("home.login")
+
+          .ui.hidden.transition.information
+            h1.ui.inverted.centered.header= __("home.slogan")
+            p.ui.centered.lead= __("home.description")
+            a.large.basic.inverted.animated.fade.ui.button(href='/login')
+              .visible.content= __("home.find_out_more")
+              .hidden.content= __("home.login")
+            //.ui.centerted.image
+            //  img(src='images/home/banner.png')
+
+    .ui.feature.vertical.segment
+      .ui.three.column.center.aligned.stackable.grid
+        .column.column-feature
+          .ui.icon.header
+            i.tag.icon
+            = __("neurite.name")
+          p
+            = __("neurite.description")
+          //p
+            a.ui.button(href='#')
+              | Learn
+        .column.column-feature
+          .ui.icon.header
+            i.exchange.icon
+            = __("mqttCluster.name")
+          p
+            = __("mqttCluster.description")
+          //p
+            a.ui.green.right.labeled.icon.button(href='#')
+              | Research
+              i.right.flaticon-move.icon
+        .column.column-feature
+          .ui.icon.header
+            i.bar.chart.icon
+            = __("dataCloud.name")
+          p
+            = __("dataCloud.description")
+          //p
+            a.ui.button(href='#')
+              | Share
+
+      //.ui.centered.grid
+        h3.subscribe-header Subscribe to Mailing List
+        p.ui.centered.lead.large
+          | At least he won't reach his highest potential unless you enroll him in Cat University's 2013 class.
+        .ui.form.eight.wide.subscribe.column
+          .field
+            .ui.fluid.action.input
+              input(placeholder='Susbcribe...', type='text')
+              .ui.button Susbcribe
+
+    .ui.recent-works.vertical.segment
+        .centered.column
+          h2.center.aligned.ui.inverted.header
+            = __("home.recent-works")
+          .ui.horizontal.divider
+            i.white.flaticon-camera.icon
+          //p.ui.centered.lead
+            | to see 
+
+        .centered.column
+          .ui.three.column.aligned.stackable.divided.grid
+            .column
+              .ui.card
+                .image
+                  img(src='images/portfolio/iot3-650-350.png')
+                .content
+                  .header= __("weather-station.name")
+                  .description
+                    = __("weather-station.description")
+                //.ui.two.bottom.attached.buttons
+                  .ui.button
+                    i.flaticon-plus.icon
+                    |         Queue
+                  .ui.pink.button
+                    i.flaticon-play.icon
+                    |         Watch
+
+            .column
+              .ui.card
+                .image
+                  img(src='images/portfolio/iot1-650-350.png')
+                .content
+                  .header= __("factory-monitor.name")
+                  .description
+                    = __("factory-monitor.description")
+                //.ui.two.bottom.attached.buttons
+                  .ui.button
+                    i.flaticon-plus.icon
+                    |         Queue
+                  .ui.pink.button
+                    i.flaticon-play.icon
+                    |         Watch
+            .column
+              .ui.card
+                .image
+                  img(src='images/portfolio/iot2-650-350.png')
+                .content
+                  .header= __("bbb.name")
+                  .description
+                    = __("bbb.description")
+                //.ui.two.bottom.attached.buttons
+                  .ui.button
+                    i.flaticon-plus.icon
+                    |         Queue
+                  .ui.pink.button
+                    i.flaticon-play.icon
+                    |         Watch
+
+    //.ui.vertical.segment
+      .ui.stackable.center.aligned.page.grid
+        .row
+          .eight.wide.column
+            h1.ui.header
+              | Our Clients
+            .ui.horizontal.divider
+              i.flaticon-settings.icon
+            p.ui.centered.lead
+              | Many Companies Rely on Our Cat Knowledge
+            br
+        .four.column.logo.row
+          .column
+            .ui.shape
+              .sides
+                .active.side
+                  i.huge.flaticon-facebook.icon
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-twitter.icon
+                .side
+                  i.huge.flaticon-pinterest.icon
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-more.icon
+          .column
+            .ui.shape
+              .sides
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-more.icon
+                .active.side
+                  i.huge.flaticon-twitter.icon
+                .side
+                  i.huge.flaticon-facebook.icon
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-twitter.icon
+          .column
+            .ui.shape
+              .sides
+                .active.side
+                  i.huge.flaticon-facebook.icon
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-twitter.icon
+                .side
+                  i.huge.flaticon-pinterest.icon
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-more.icon
+          .column
+            .ui.shape
+              .sides
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-more.icon
+                .active.side
+                  i.huge.flaticon-twitter.icon
+                .side
+                  i.huge.flaticon-facebook.icon
+                .side
+                  i.huge.flaticon-google.icon
+                .side
+                  i.huge.flaticon-twitter.icon
+
+    .ui.inverted.footer.vertical.segment.center
+      .ui.stackable.center.aligned.page.grid
+        .four.column.row
+          //.column
+            h5.ui.inverted.header Courses
+            .ui.inverted.link.list
+              a.item Registration
+              a.item Course Calendar
+              a.item Professors
+          //.column
+            h5.ui.inverted.header Library
+            .ui.inverted.link.list
+              a.item A-Z
+              a.item Most Popular
+              a.item Recently Changed
+          //.column
+            h5.ui.inverted.header Community
+            .ui.inverted.link.list
+              a.item BBS
+              a.item Careers
+              a.item Privacy Policy
+          .column
+            h5.ui.inverted.header Made with love by
+            br
+            p linkgo.io
+            //addr
+              a.item(href='http://linkgo.io')
+                img(src='images/linkgo-logo-font-1600x480.png', alt='Logo', style='height:20px')
+              br
+

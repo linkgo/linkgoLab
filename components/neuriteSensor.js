@@ -1,6 +1,6 @@
-//var React = require('react');
+var React = require('react');
 
-module.exports = NeuriteSensor = React.createClass({
+module.exports = React.createClass({
   
   fetchDataTemp: function(key, count, callback) {
     var url = "/data";

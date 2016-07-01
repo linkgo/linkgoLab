@@ -9,5 +9,5 @@ var neuriteSensor = React.createElement(NeuriteSensor);
 
 ReactDOM.render(
   neuriteSensor,
-  document.getElementById('newLink')
+  document.getElementById('neuriteSensor')
 );

@@ -1,0 +1,53 @@
+extends ../layout
+
+block head
+  meta(name='description', content='linkgo.io web')
+  meta(name='author', content='linkgo.io')
+  title linkgo.io
+
+  link(rel='stylesheet', href='/views/login/index.css')
+  link(rel='stylesheet', href='/vendor/semantic/semantic.css')
+
+block feet
+  script(src="/vendor/react/react.js")
+  script(src="/vendor/react-dom/react-dom.js")
+  script(src='/views/login/index.min.js?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-sm-6
+      div#login
+      if oauthTwitter || oauthGitHub || oauthFacebook || oauthGoogle || oauthTumblr
+        hr
+        p Or sign in using...
+        if oauthMessage
+          div.alerts
+            div.alert.alert-info.alert-dismissable
+              button.close(type='button', data-dismiss='alert') &times;
+              |#{oauthMessage}&nbsp;
+              b
+                a(href='/signup/') Sign Up Here
+        div.form-actions
+          div.btn-group.btn-group-justified
+            if oauthTwitter
+              a.btn.btn-info(href='/login/twitter/')
+                i.fa.fa-twitter.fa-lg
+                |  Twitter
+            if oauthGitHub
+              a.btn.btn-info(href='/login/github/')
+                i.fa.fa-github.fa-lg
+                |  GitHub
+            if oauthFacebook
+              a.btn.btn-info(href='/login/facebook/')
+                i.fa.fa-facebook-square.fa-lg
+                |  Facebook
+            if oauthGoogle
+              a.btn.btn-info(href='/login/google/')
+                i.fa.fa-google-plus-square.fa-lg
+                |  Google
+            if oauthTumblr
+              a.btn.btn-info(href='/login/tumblr/')
+                i.fa.fa-tumblr-square.fa-lg
+                |  Tumblr
+
+    div#loginForm
