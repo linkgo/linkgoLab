@@ -1,0 +1,55 @@
+var gulp = require('gulp');
+    del = require('del');
+    babel = require('gulp-babel');
+    transform = require('vinyl-transform');
+    browserify = require('browserify');
+    tap = require('gulp-tap');
+    watchify = require('watchify');
+
+gulp.task('styles', function() {
+  gulp.src(['./AdminLTE/bootstrap/**/**'], {dot: true}).pipe(gulp.dest('./public/vendor/bootstrap/'));
+  gulp.src(['./AdminLTE/dist/**/**'], {dot: true}).pipe(gulp.dest('./public/vendor/AdminLTE/'));
+});
+
+gulp.task('babel', function() {
+  gulp.src('./components/*.jsx')
+      .pipe(babel({presets:['es2015', 'react']}))
+      .pipe(gulp.dest('./components/dist/'));
+});
+
+gulp.task('js', function() {
+  gulp.src(['./node_modules/jquery/dist/**/**']).pipe(gulp.dest('./public/vendor/jquery/'));
+  gulp.src(['./node_modules/jquery.cookie/jquery.cookie.js']).pipe(gulp.dest('./public/vendor/jquery.cookie/'));
+  gulp.src(['./node_modules/fittext.js/jquery.fittext.js']).pipe(gulp.dest('./public/vendor/fittext/'));
+  gulp.src(['./node_modules/react/dist/react.js']).pipe(gulp.dest('./public/vendor/react/'));
+  gulp.src(['./node_modules/react-dom/dist/react-dom.js']).pipe(gulp.dest('./public/vendor/react-dom/'));
+});
+
+gulp.task('browserify', function() {
+  gulp.src(['./views/**/*.js'], {read: false})
+      .pipe(tap(function(file) {
+        //console.log('bundling ' + file.path);
+        var b = browserify({
+          entries: file.path,
+          cache: {},
+          packageCache: {},
+          plugin: [watchify]
+        });
+        b.on('update', function() {
+          console.log("here change");
+          file.contents = b.bundle();
+        });
+
+        console.log("here");
+        file.contents = b.bundle();
+      }))
+      .pipe(gulp.dest('./public/views/'));
+});
+
+gulp.task('clean', function() {
+  del(['./public/vendor/**/**']);
+  del(['./public/views/**/**']);
+  del(['./public/layouts/**/**']);
+});
+
+
