@@ -9,8 +9,9 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var streamify = require('gulp-streamify');
 var babelify = require('babelify');
+var path = require('path');
 
-var path = {
+var env = {
   HTML: ['./views/*.jade', './views/**/*.jade'],
   JS_VIEWS: ['./views/**/*.js'],
   JS_COMPONENTS: ['./components/*.jsx'],
@@ -21,55 +22,61 @@ var path = {
   DEST_VIEWS: 'dist/views',
   DEST_BUILD: 'dist/build',
   DEST: 'dist',
-  ENTRY_POINT: ['./views/newLink/newLink.js']
+  ENTRY_POINTS: [
+    './views/newLink/newLink.js',
+    './views/neuriteSensor/neuriteSensor.js',
+  ],
 };
 
-gulp.task('transform', function(){
-  gulp.src(path.JS_COMPONENTS)
-    .pipe(babel({presets:['es2015', 'react']}))
-    .pipe(gulp.dest(path.DEST_COMPONENTS));
-  gulp.src(path.JS_VIEWS)
-    .pipe(gulp.dest(path.DEST_VIEWS));
-});
-
 gulp.task('copy', function(){
-  gulp.src(path.HTML)
-    .pipe(gulp.dest(path.DEST_VIEWS));
+  gulp.src(env.HTML)
+    .pipe(gulp.dest(env.DEST_VIEWS));
 });
 
-gulp.task('watch', function(){
-  gulp.watch(path.HTML, ['copy']);
+gulp.task('watch', function() {
+  gulp.watch(env.HTML, ['copy']);
 
-  var b = watchify(browserify({
-    entries: path.ENTRY_POINT,
-    cache: {},
-    packageCache: {},
-    debug: true
-    //plugin: [watchify]
-  }), {poll: true});
+  env.ENTRY_POINTS.forEach(function(e, i, a) {
+    var b = watchify(browserify({
+      entries: e,
+      cache: {},
+      debug: true
+    }));
 
-  b.on('update', bundle);
-  bundle();
+    b.on('update', bundle);
+    bundle();
 
-  function bundle() {
-    console.log("bundle");
-    b.transform("babelify", {presets: ["es2015", "react"]})
-    .bundle()
-    .pipe(source(path.OUT))
-    .pipe(gulp.dest(path.DEST_BUILD))
-  }
+    function bundle() {
+      console.log("bundle");
+      b.transform("babelify", {presets: ["es2015", "react"]})
+      .bundle()
+      .pipe(source(path.basename(e)))
+      .pipe(gulp.dest(env.DEST))
+    }
+  });
 });
 
-gulp.task('build', function(){
-  gulp.src(path.JS_COMPONENTS)
-    .pipe(babel({presets:['es2015', 'react']}))
-    .pipe(concat())
-    .pipe(uglify())
-    .pipe(gulp.dest(path.DEST_BUILD));
-  gulp.src(path.JS_VIEWS)
-    .pipe(concat())
-    .pipe(uglify())
-    .pipe(gulp.dest(path.DEST_BUILD));
+gulp.task('build', function() {
+  env.ENTRY_POINTS.forEach(function(e, i, a) {
+    var b = browserify({
+      entries: e,
+      cache: {},
+      debug: true
+    });
+
+    bundle();
+
+    function bundle() {
+      var name = path.basename(e, '.js') + '.min.js';
+      console.log("bundle", name);
+      b.transform("babelify", {presets: ["es2015", "react"]})
+      .bundle()
+      .pipe(source(name))
+      .pipe(streamify(uglify()))
+      .pipe(gulp.dest(env.DEST))
+    }
+  });
+  
 });
 
 gulp.task('default', ['watch']);
