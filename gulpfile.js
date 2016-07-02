@@ -10,6 +10,9 @@ var streamify = require('gulp-streamify');
 var babelify = require('babelify');
 var path = require('path');
 var del = require('del');
+var jshint = require('gulp-jshint');
+var nodemon = require('gulp-nodemon');
+var livereload = require('gulp-livereload');
 
 var env = {
   VIEWS: ['./views/*.jade', './views/**/*.jade'],
@@ -39,7 +42,24 @@ gulp.task('copy', function(){
     .pipe(gulp.dest('./dist/vendors/jquery.cookie'));
 });
 
+gulp.task('lint', function () {
+  gulp.src('./views/**/*.js')
+    .pipe(jshint())
+})
+
+gulp.task('develop', function () {
+  nodemon({ script: './linkgoLab.js'
+          , ext: 'js'
+          , ignore: ['./gulpfile.js', './dist/', './views/', './public/']
+          , tasks: ['lint'] })
+    .on('restart', function () {
+      console.log('restarted!')
+    })
+})
+
 gulp.task('watch', function() {
+  //livereload.listen();
+
   gulp.watch(env.VIEWS, ['copy']);
 
   env.ENTRY_POINTS.forEach(function(e, i, a) {
@@ -93,4 +113,4 @@ gulp.task('clean', function() {
   });
 });
 
-gulp.task('default', ['copy', 'watch']);
+gulp.task('default', ['copy', 'watch', 'develop']);
