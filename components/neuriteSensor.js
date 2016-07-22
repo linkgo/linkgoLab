@@ -45,7 +45,7 @@ module.exports = React.createClass({
       },
       series: [{
           id: id,
-          name: 'tempreature',
+          name: title,
           data: data
       }]
   });

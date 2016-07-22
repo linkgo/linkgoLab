@@ -1,7 +1,5 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var babel = require('gulp-babel');
 //var htmlreplace = require('gulp-html-replace');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
@@ -13,6 +11,7 @@ var del = require('del');
 var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
+var gutil = require('gulp-util');
 
 var env = {
   VIEWS: ['./views/*.jade', './views/**/*.jade'],
@@ -75,11 +74,15 @@ gulp.task('watch', function() {
     function bundle() {
       //var name = path.basename(e);
       var name = e;
-      console.log("bundle");
       b.transform("babelify", {presets: ["es2015", "react"]})
-      .bundle()
+      .bundle().on('error', function(err) {
+        gutil.log("Browserify Error", gutil.colors.yellow(err.message));
+        this.emit('end');
+      })
       .pipe(source(name))
-      .pipe(gulp.dest(env.DEST))
+      .pipe(gulp.dest(env.DEST));
+
+      console.log("bundled", e);
     }
   });
 });
